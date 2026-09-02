@@ -1,0 +1,270 @@
+/* ==========================================
+   RESET & BASE
+========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   BODY
+========================================== */
+body {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5efe7;
+    animation: fadePage 2s ease;
+    overflow-x: hidden;
+    padding-bottom: 60px;
+}
+
+/* ==========================================
+   HEADER - لوگو و بنر
+========================================== */
+.Logo_Hatam {
+    width: 450px;
+    height: auto;
+    display: block;
+    margin: -35px auto 10px;
+}
+
+.Logo_Menu_Noshidani {
+    width: 550px;
+    height: auto;
+    display: block;
+    margin: -35px auto 35px;
+}
+
+/* ==========================================
+   INFO BAR - نوار اطلاعات
+========================================== */
+.Info_box {
+    width: 100%;
+    max-width: 1000px;
+    margin: 35px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.Info_box a {
+    flex: 1;
+    display: block;
+    text-decoration: none;
+}
+
+.Info_img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: all 0.3s ease;
+}
+
+/* هاور برای آیکون‌های اطلاعات */
+.Info_img:hover {
+    transform: scale(1.02);
+    filter: brightness(0.95);
+}
+
+/* ==========================================
+   CATEGORIES - منوها
+========================================== */
+.Categories {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* ==========================================
+   MENU IMAGES - همه نوشیدنی‌ها
+========================================== */
+.Noshabe_Botri,
+.Noshabe_Gooti,
+.Noshabe_Shishe,
+.Noshabe_Ziro,
+.Noshabe_Khanevade,
+.Limonad_Botri,
+.Limonad_Shishe,
+.Limonad_Khanevade,
+.Delester_Ghooti,
+.Delester_Khanevade,
+.Doogh_Botri,
+.Doogh_Khanevade,
+.Ab_Madani_Botri,
+.Ab_Madani_Khanevade {
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    display: block;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+}
+
+/* هاور برای همه تصاویر نوشیدنی */
+.Noshabe_Botri:hover,
+.Noshabe_Gooti:hover,
+.Noshabe_Shishe:hover,
+.Noshabe_Ziro:hover,
+.Noshabe_Khanevade:hover,
+.Limonad_Botri:hover,
+.Limonad_Shishe:hover,
+.Limonad_Khanevade:hover,
+.Delester_Ghooti:hover,
+.Delester_Khanevade:hover,
+.Doogh_Botri:hover,
+.Doogh_Khanevade:hover,
+.Ab_Madani_Botri:hover,
+.Ab_Madani_Khanevade:hover {
+    transform: scale(1.01);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   BACK BUTTON - دکمه بازگشت
+========================================== */
+.back-button {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.bazgasht {
+    max-width: 1000px;
+    width: 70%;
+    margin: 0 auto;
+    height: auto;
+    display: block;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+}
+
+/* هاور برای دکمه بازگشت */
+.bazgasht:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* ==========================================
+   ANIMATION
+========================================== */
+@keyframes fadePage {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+/* تبلت */
+@media (max-width: 768px) {
+    .Logo_Hatam {
+        width: 200px;
+        margin-top: -20px;
+    }
+    
+    .Logo_Menu_Noshidani {
+        width: 300px;
+        margin-top: -20px;
+        margin-bottom: 20px;
+    }
+
+    .Info_box {
+        gap: 10px;
+        margin: 20px auto;
+    }
+
+    .Categories {
+        gap: 20px;
+    }
+
+    .bazgasht {
+        width: 80%;
+    }
+
+    body {
+        padding-bottom: 40px;
+    }
+
+    .Noshabe_Botri,
+    .Noshabe_Gooti,
+    .Noshabe_Shishe,
+    .Noshabe_Ziro,
+    .Noshabe_Khanevade,
+    .Limonad_Botri,
+    .Limonad_Shishe,
+    .Limonad_Khanevade,
+    .Delester_Ghooti,
+    .Delester_Khanevade,
+    .Doogh_Botri,
+    .Doogh_Khanevade,
+    .Ab_Madani_Botri,
+    .Ab_Madani_Khanevade {
+        border-radius: 10px;
+    }
+}
+
+/* موبایل */
+@media (max-width: 480px) {
+    .Logo_Hatam {
+        width: 140px;
+        margin-top: -10px;
+    }
+    
+    .Logo_Menu_Noshidani {
+        width: 200px;
+        margin-top: -10px;
+        margin-bottom: 15px;
+    }
+
+    .Info_box {
+        gap: 8px;
+        margin: 15px auto;
+    }
+
+    .Categories {
+        gap: 15px;
+    }
+
+    .bazgasht {
+        width: 90%;
+    }
+
+    body {
+        padding-bottom: 30px;
+    }
+
+    .Noshabe_Botri,
+    .Noshabe_Gooti,
+    .Noshabe_Shishe,
+    .Noshabe_Ziro,
+    .Noshabe_Khanevade,
+    .Limonad_Botri,
+    .Limonad_Shishe,
+    .Limonad_Khanevade,
+    .Delester_Ghooti,
+    .Delester_Khanevade,
+    .Doogh_Botri,
+    .Doogh_Khanevade,
+    .Ab_Madani_Botri,
+    .Ab_Madani_Khanevade {
+        border-radius: 8px;
+    }
+}

@@ -1,0 +1,351 @@
+/* ==========================================
+   RESET & BASE - ریست و تنظیمات پایه
+========================================== */
+* {
+    margin: 0;                 /* حذف حاشیه پیش‌فرض */
+    padding: 0;                /* حذف فاصله داخلی پیش‌فرض */
+    box-sizing: border-box;    /* محاسبه عرض شامل padding و border */
+}
+
+/* ==========================================
+   BODY - بدنه اصلی صفحه
+========================================== */
+body {
+    width: 100%;                          /* عرض کامل صفحه */
+    min-height: 100vh;                    /* حداقل ارتفاع برابر viewport */
+    display: flex;                        /* چیدمان فلکس */
+    flex-direction: column;               /* ترتیب عمودی */
+    align-items: center;                  /* وسط‌چین افقی */
+    background-color: #f5efe7;            /* رنگ پس‌زمینه کرم */
+    animation: fadePage 2s ease;          /* انیمیشن محو شدن در بارگذاری */
+    overflow-x: hidden;                   /* جلوگیری از اسکرول افقی */
+}
+
+/* ==========================================
+   WRAPPER - کانتینر اصلی تمام محتوا
+========================================== */
+.site-wrapper {
+    flex: 1;                              /* کشیده شدن برای پر کردن فضا */
+    width: 100%;                          /* عرض کامل */
+    max-width: 1000px;                    /* حداکثر عرض */
+    display: flex;                        /* چیدمان فلکس */
+    flex-direction: column;               /* ترتیب عمودی */
+    padding-bottom: 60px;                 /* فاصله از پایین صفحه - آخرین آیتم نچسبد */
+}
+
+/* ==========================================
+   HEADER - سرصفحه (لوگو و بنر)
+========================================== */
+.site-header {
+    width: 100%;                          /* عرض کامل */
+    display: flex;                        /* چیدمان فلکس */
+    flex-direction: column;               /* عمودی */
+    align-items: center;                  /* وسط‌چین */
+    margin: 0 auto;                       /* مرکز قرارگیری */
+}
+
+.Logo_Hatam {
+    width: 450px;                         /* عرض لوگو */
+    height: auto;                         /* ارتفاع متناسب */
+    margin-top: -35px;                    /* جابجایی به سمت بالا */
+    margin-bottom: 10px;                  /* فاصله از پایین */
+    display: block;                       /* نمایش بلوکی */
+}
+
+.Logo_Menu_Eghtesadi {
+    width: 550px;                         /* عرض بنر */
+    height: auto;                         /* ارتفاع متناسب */
+    margin-top: -35px;                    /* چسبیدن به لوگو */
+    margin-bottom: 35px;                  /* فاصله از بخش بعد */
+    display: block;                       /* نمایش بلوکی */
+}
+
+/* ==========================================
+   INFO BAR - نوار اطلاعات تماس
+========================================== */
+.Info_box {
+    width: 100%;                          /* عرض کامل */
+    max-width: 1000px;                    /* حداکثر عرض */
+    display: flex;                        /* چیدمان فلکس */
+    justify-content: center;              /* وسط‌چین افقی */
+    align-items: center;                  /* وسط‌چین عمودی */
+    gap: 15px;                            /* فاصله بین آیتم‌ها */
+    margin: 35px auto;                    /* فاصله از اطراف */
+}
+
+.Info_box a {
+    flex: 1;                              /* تقسیم فضای مساوی */
+    display: block;                       /* نمایش بلوکی */
+    text-decoration: none;                /* حذف زیرخط */
+    transition: all 0.3s ease;            /* انیمیشن هاور */
+}
+
+/* هاور روی لینک‌های اطلاعات */
+.Info_box a:hover {
+    transform: scale(1.03);               /* بزرگنمایی کل کادر */
+}
+
+.Info_img {
+    width: 100%;                          /* عرض کامل ظرف */
+    height: auto;                         /* ارتفاع متناسب */
+    display: block;                       /* نمایش بلوکی */
+    transition: all 0.3s ease;            /* انیمیشن هاور */
+    border-radius: 12px;                  /* گوشه‌های گرد */
+}
+
+/* هاور روی آیکون‌های اطلاعات */
+.Info_img:hover {
+    transform: scale(1.02);               /* بزرگنمایی جزئی */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* سایه نرم */
+    filter: brightness(0.97);             /* کمی تیره‌تر */
+}
+
+/* ==========================================
+   CATEGORIES - دسته‌بندی منوها
+========================================== */
+.Categories {
+    max-width: 1000px;                    /* حداکثر عرض کانتینر */
+    width: 100%;                          /* عرض کامل */
+    margin: 0 auto;                       /* وسط‌چین افقی */
+    display: flex;                        /* چیدمان فلکس */
+    flex-direction: column;               /* ترتیب عمودی */
+    gap: 30px;                            /* فاصله بین آیتم‌ها */
+    flex: 1;                              /* کشیده شدن برای پر کردن فضا */
+}
+
+/* ==========================================
+   MENU CARDS - کارت‌های منو
+========================================== */
+.menu-card {
+    width: 100%;                          /* عرض کامل */
+    height: auto;                         /* ارتفاع متناسب */
+    position: relative;                   /* برای فرزندان مطلق */
+}
+
+/* ==========================================
+   MENU IMAGES - تصاویر منوها با کلاس‌های شما
+========================================== */
+
+/* چلو کباب اقتصادی */
+.Chelo_Kabab {
+    max-width: 1000px;                    /* حداکثر عرض */
+    width: 100%;                          /* عرض کامل */
+    margin: 0 auto;                       /* وسط‌چین */
+    height: auto;                         /* ارتفاع متناسب */
+    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
+    position: relative;                   /* برای موقعیت‌دهی */
+    border-radius: 12px;                  /* گوشه‌های گرد */
+    transition: all 0.3s ease;            /* انیمیشن هاور */
+}
+
+.Chelo_Kabab:hover {
+    transform: scale(1.01);               /* بزرگنمایی جزئی */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
+}
+
+/* چلو جوجه اقتصادی */
+.Chelo_joje {
+    max-width: 1000px;                    /* حداکثر عرض */
+    width: 100%;                          /* عرض کامل */
+    margin: 0 auto;                       /* وسط‌چین */
+    height: auto;                         /* ارتفاع متناسب */
+    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
+    position: relative;                   /* برای موقعیت‌دهی */
+    border-radius: 12px;                  /* گوشه‌های گرد */
+    transition: all 0.3s ease;            /* انیمیشن هاور */
+}
+
+.Chelo_joje:hover {
+    transform: scale(1.01);               /* بزرگنمایی جزئی */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
+}
+
+/* چلو وزیری اقتصادی */
+.Chelo_Vaziri {
+    max-width: 1000px;                    /* حداکثر عرض */
+    width: 100%;                          /* عرض کامل */
+    margin: 0 auto;                       /* وسط‌چین */
+    height: auto;                         /* ارتفاع متناسب */
+    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
+    position: relative;                   /* برای موقعیت‌دهی */
+    border-radius: 12px;                  /* گوشه‌های گرد */
+    transition: all 0.3s ease;            /* انیمیشن هاور */
+}
+
+.Chelo_Vaziri:hover {
+    transform: scale(1.01);               /* بزرگنمایی جزئی */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
+}
+
+/* چلو مرغ سینه اقتصادی */
+.Chelo_Morgh_Sorkh_Sine {
+    max-width: 1000px;                    /* حداکثر عرض */
+    width: 100%;                          /* عرض کامل */
+    margin: 0 auto;                       /* وسط‌چین */
+    height: auto;                         /* ارتفاع متناسب */
+    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
+    position: relative;                   /* برای موقعیت‌دهی */
+    border-radius: 12px;                  /* گوشه‌های گرد */
+    transition: all 0.3s ease;            /* انیمیشن هاور */
+}
+
+.Chelo_Morgh_Sorkh_Sine:hover {
+    transform: scale(1.01);               /* بزرگنمایی جزئی */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
+}
+
+/* چلو مرغ ران اقتصادی */
+.Chelo_Morgh_Sorkh_Ran {
+    max-width: 1000px;                    /* حداکثر عرض */
+    width: 100%;                          /* عرض کامل */
+    margin: 0 auto;                       /* وسط‌چین */
+    height: auto;                         /* ارتفاع متناسب */
+    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
+    position: relative;                   /* برای موقعیت‌دهی */
+    border-radius: 12px;                  /* گوشه‌های گرد */
+    transition: all 0.3s ease;            /* انیمیشن هاور */
+}
+
+.Chelo_Morgh_Sorkh_Ran:hover {
+    transform: scale(1.01);               /* بزرگنمایی جزئی */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
+}
+
+/* ==========================================
+   BACK BUTTON - دکمه بازگشت
+========================================== */
+.back-button {
+    width: 100%;                          /* عرض کامل */
+    max-width: 1000px;                    /* حداکثر عرض */
+    margin: 20px auto 0;                  /* فاصله از بالا */
+    display: flex;                        /* چیدمان فلکس */
+    justify-content: center;              /* وسط‌چین افقی */
+}
+
+.back-link {
+    display: block;                       /* نمایش بلوکی */
+    text-decoration: none;                /* حذف زیرخط */
+    width: 70%;                           /* عرض ۷۰ درصد */
+    transition: transform 0.3s ease;      /* انیمیشن هاور */
+}
+
+.back-link:hover {
+    transform: scale(1.02);               /* بزرگنمایی جزئی در هاور */
+}
+
+.bazgasht {
+    max-width: 1000px;                    /* حداکثر عرض */
+    width: 100%;                          /* عرض کامل */
+    height: auto;                         /* ارتفاع متناسب */
+    display: block;                       /* نمایش بلوکی */
+    border-radius: 12px;                  /* گوشه‌های گرد */
+    transition: all 0.3s ease;            /* انیمیشن هاور */
+}
+
+/* هاور روی دکمه بازگشت */
+.bazgasht:hover {
+    transform: scale(1.02);               /* بزرگنمایی جزئی */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
+}
+
+/* ==========================================
+   ANIMATIONS - انیمیشن‌ها
+========================================== */
+@keyframes fadePage {
+    from {
+        opacity: 0;                        /* شروع: مخفی */
+        transform: translateY(15px);       /* پایین‌تر */
+    }
+    to {
+        opacity: 1;                        /* پایان: قابل مشاهده */
+        transform: translateY(0);          /* موقعیت اصلی */
+    }
+}
+
+/* ==========================================
+   RESPONSIVE - واکنش‌گرایی
+========================================== */
+
+/* === تبلت و صفحه‌های متوسط === */
+@media (max-width: 768px) {
+    .Logo_Hatam {
+        width: 200px;                      /* کاهش لوگو */
+        margin-top: -20px;
+    }
+    
+    .Logo_Menu_Eghtesadi {
+        width: 300px;                      /* کاهش بنر */
+        margin-top: -20px;
+        margin-bottom: 20px;
+    }
+
+    .Info_box {
+        gap: 10px;                         /* کاهش فاصله */
+        margin: 20px auto;
+    }
+
+    .site-wrapper {
+        padding-bottom: 40px;              /* کاهش فاصله پایین */
+    }
+
+    .Categories {
+        gap: 20px;                         /* کاهش فاصله بین منوها */
+    }
+
+    .back-link {
+        width: 80%;                        /* افزایش عرض دکمه بازگشت */
+    }
+
+    /* کاهش گردی گوشه‌ها در تبلت */
+    .Chelo_Kabab,
+    .Chelo_joje,
+    .Chelo_Vaziri,
+    .Chelo_Morgh_Sorkh_Sine,
+    .Chelo_Morgh_Sorkh_Ran,
+    .bazgasht,
+    .Info_img {
+        border-radius: 10px;
+    }
+}
+
+/* === موبایل و صفحه‌های کوچک === */
+@media (max-width: 480px) {
+    .Logo_Hatam {
+        width: 140px;                      /* کاهش بیشتر لوگو */
+        margin-top: -10px;
+    }
+    
+    .Logo_Menu_Eghtesadi {
+        width: 200px;                      /* کاهش بیشتر بنر */
+        margin-top: -10px;
+        margin-bottom: 15px;
+    }
+
+    .Info_box {
+        gap: 8px;                          /* فاصله کمتر */
+        margin: 15px auto;
+    }
+
+    .Categories {
+        gap: 15px;                         /* فاصله کمتر بین منوها */
+    }
+
+    .site-wrapper {
+        padding-bottom: 30px;              /* کاهش فاصله پایین برای موبایل */
+    }
+
+    .back-link {
+        width: 90%;                        /* افزایش بیشتر عرض دکمه بازگشت */
+    }
+
+    /* کاهش گردی گوشه‌ها در موبایل */
+    .Chelo_Kabab,
+    .Chelo_joje,
+    .Chelo_Vaziri,
+    .Chelo_Morgh_Sorkh_Sine,
+    .Chelo_Morgh_Sorkh_Ran,
+    .bazgasht,
+    .Info_img {
+        border-radius: 8px;
+    }
+}
