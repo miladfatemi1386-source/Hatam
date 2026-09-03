@@ -6,7 +6,7 @@
     ========================================== -->
     <meta charset="UTF-8"> <!-- رمزگذاری فارسی -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- واکنش‌گرایی -->
-    <title>منوی ویژه حاتم</title> <!-- عنوان برگه مرورگر -->
+    <title>منوی رستوران حاتم</title> <!-- عنوان برگه مرورگر -->
 
     <!-- ==========================================
     STYLESHEETS - لینک به فایل‌های سبک
@@ -75,10 +75,12 @@ body {
 .site-wrapper {
     flex: 1;                              /* کشیده شدن برای پر کردن فضا */
     width: 100%;                          /* عرض کامل */
-    max-width: 1000px;                    /* حداکثر عرض */
+    max-width: 560px;                     /* حداکثر عرض - مثل نمای یک اپ موبایل */
     display: flex;                        /* چیدمان فلکس */
     flex-direction: column;               /* ترتیب عمودی */
-    padding-bottom: 60px;                 /* فاصله از پایین صفحه - آخرین آیتم نچسبد */
+    padding: 0 16px 60px;                 /* فاصله از کناره‌ها و پایین صفحه */
+    margin: 0 auto;                       /* وسط‌چین در صفحه‌های عریض */
+    container-type: inline-size;          /* مبنای محاسبه‌ی واحد cqw برای فرزندان */
 }
 
 /* ==========================================
@@ -93,57 +95,138 @@ body {
 }
 
 .header-logo {
-    width: 450px;                         /* عرض لوگو */
+    width: clamp(140px, 62cqw, 320px);    /* عرض لوگو - پیوسته با اندازه صفحه */
     height: auto;                         /* ارتفاع متناسب */
-    margin-top: -35px;                    /* جابجایی به سمت بالا */
-    display: block;                       /* نمایش بلوکی */
-}
-
-.header-banner {
-    width: 550px;                         /* عرض بنر */
-    height: auto;                         /* ارتفاع متناسب */
-    margin-top: -35px;                    /* چسبیدن به لوگو */
-    margin-bottom: 35px;                  /* فاصله از بخش بعد */
+    margin-top: clamp(-16px, -5cqw, -35px); /* جابجایی به سمت بالا */
     display: block;                       /* نمایش بلوکی */
 }
 
 /* ==========================================
-   INFO BAR - نوار اطلاعات تماس
+   HEADER TITLE - عنوان «منوی رستوران حاتم» (جایگزین کد‌ی تصویر)
+========================================== */
+.header-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(8px, 3cqw, 16px);
+    margin-top: -10px;
+    margin-bottom: clamp(16px, 4cqw, 35px);
+}
+
+.header-title__line {
+    height: 2px;
+    width: clamp(24px, 8cqw, 70px);
+    background: linear-gradient(90deg, transparent, #b28f57, transparent);
+}
+
+.header-title__text {
+    font-family: "AbrBold", "Estedad", sans-serif;
+    font-size: clamp(17px, 4.6cqw, 30px);
+    color: #1f3555;
+    white-space: nowrap;
+}
+
+/* ==========================================
+   TICKET NOTCH SHAPE - شکل بلیطی با گوشه‌های بریده
+   (استفاده مشترک در info-icon و menu-card__box)
+========================================== */
+.ticket {
+    --notch: clamp(9px, 2.6cqw, 16px);
+    --gap: clamp(2px, 0.8cqw, 4px);
+    position: relative;
+    display: block;
+    width: 100%;
+    background: #1f3555;
+    padding: var(--gap);
+    box-sizing: border-box;
+    clip-path: polygon(
+        var(--notch) 0%, calc(100% - var(--notch)) 0%,
+        calc(100% - var(--notch)) var(--notch), 100% var(--notch),
+        100% calc(100% - var(--notch)), calc(100% - var(--notch)) calc(100% - var(--notch)),
+        calc(100% - var(--notch)) 100%, var(--notch) 100%,
+        var(--notch) calc(100% - var(--notch)), 0% calc(100% - var(--notch)),
+        0% var(--notch), var(--notch) var(--notch)
+    );
+    transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.ticket__inner {
+    display: block;
+    background: #fff;
+    padding: var(--gap);
+    box-sizing: border-box;
+    clip-path: polygon(
+        var(--notch) 0%, calc(100% - var(--notch)) 0%,
+        calc(100% - var(--notch)) var(--notch), 100% var(--notch),
+        100% calc(100% - var(--notch)), calc(100% - var(--notch)) calc(100% - var(--notch)),
+        calc(100% - var(--notch)) 100%, var(--notch) 100%,
+        var(--notch) calc(100% - var(--notch)), 0% calc(100% - var(--notch)),
+        0% var(--notch), var(--notch) var(--notch)
+    );
+}
+
+.ticket__gold {
+    border: 1.4px solid #b28f57;
+    clip-path: polygon(
+        var(--notch) 0%, calc(100% - var(--notch)) 0%,
+        calc(100% - var(--notch)) var(--notch), 100% var(--notch),
+        100% calc(100% - var(--notch)), calc(100% - var(--notch)) calc(100% - var(--notch)),
+        calc(100% - var(--notch)) 100%, var(--notch) 100%,
+        var(--notch) calc(100% - var(--notch)), 0% calc(100% - var(--notch)),
+        0% var(--notch), var(--notch) var(--notch)
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* ==========================================
+   INFO BAR - نوار اطلاعات تماس (ساخته‌شده با کد به‌جای تصویر)
 ========================================== */
 .info-bar {
     width: 100%;                          /* عرض کامل */
     display: flex;                        /* چیدمان فلکس */
     justify-content: center;              /* وسط‌چین افقی */
-    align-items: center;                  /* وسط‌چین عمودی */
-    gap: 15px;                            /* فاصله بین آیتم‌ها */
-    margin: 35px auto;                    /* فاصله از اطراف */
+    align-items: stretch;                 /* هم‌ارتفاع کردن کادرها */
+    gap: clamp(8px, 2.5cqw, 15px);         /* فاصله بین آیتم‌ها */
+    margin: clamp(18px, 4cqw, 35px) auto;  /* فاصله از اطراف */
 }
 
 .info-link {
     flex: 1;                              /* تقسیم فضای مساوی */
     display: block;                       /* نمایش بلوکی */
     text-decoration: none;                /* حذف زیرخط */
-    transition: all 0.3s ease;            /* انیمیشن هاور */
+    min-width: 0;                         /* اجازه‌ی جمع‌شدن در فلکس */
 }
 
 /* هاور روی لینک‌های اطلاعات */
-.info-link:hover {
-    transform: scale(1.03);               /* بزرگنمایی کل کادر */
+.info-link:hover .ticket {
+    transform: scale(1.03);               /* بزرگنمایی */
+    filter: brightness(0.97);
 }
 
-.info-icon {
-    width: 100%;                          /* عرض کامل ظرف */
-    height: auto;                         /* ارتفاع متناسب */
-    display: block;                       /* نمایش بلوکی */
-    transition: all 0.3s ease;            /* انیمیشن هاور */
-    border-radius: 12px;                  /* گوشه‌های گرد */
+.info-icon.ticket__gold {
+    flex-direction: row;
+    gap: clamp(4px, 1.5cqw, 8px);
+    min-height: clamp(52px, 13cqw, 78px);
+    padding: clamp(6px, 2cqw, 12px);
 }
 
-/* هاور روی آیکون‌های اطلاعات */
-.info-icon:hover {
-    transform: scale(1.02);               /* بزرگنمایی جزئی */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); /* سایه نرم */
-    filter: brightness(0.97);             /* کمی تیره‌تر */
+.info-icon svg {
+    width: clamp(14px, 4cqw, 20px);
+    height: clamp(14px, 4cqw, 20px);
+    flex-shrink: 0;
+    stroke: #b28f57;
+}
+
+.info-icon span {
+    font-family: "AbrBold", "Estedad", sans-serif;
+    color: #1f3555;
+    font-size: clamp(10px, 2.6cqw, 14px);
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
 }
 
 /* ==========================================
@@ -153,127 +236,73 @@ body {
     width: 100%;                          /* عرض کامل */
     display: flex;                        /* چیدمان فلکس */
     flex-direction: column;               /* ترتیب عمودی */
-    gap: 30px;                            /* فاصله بین آیتم‌ها */
+    gap: clamp(16px, 4cqw, 30px);          /* فاصله بین آیتم‌ها */
     flex: 1;                              /* کشیده شدن برای پر کردن فضا */
 }
 
 /* ==========================================
-   MENU CARD - کارت هر منو
+   MENU CARD - کارت هر منو (ساخته‌شده با کد به‌جای تصویر)
 ========================================== */
 .menu-card {
     width: 100%;                          /* عرض کامل */
     height: auto;                         /* ارتفاع متناسب */
-    position: relative;                   /* برای فرزندان مطلق */
 }
 
-/* ==========================================
-   MENU CARD SPECIFIC - کلاس‌های اختصاصی هر منو
-========================================== */
-
-/* ----- چلو کباب ویژه ----- */
-.image--chelokabab {
-    width: 100%;                          /* عرض کامل */
-    height: auto;                         /* ارتفاع متناسب */
-    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
-    border-radius: 12px;                  /* گوشه‌های گرد */
-    transition: all 0.3s ease;            /* انیمیشن هاور */
-}
-
-.image--chelokabab:hover {
-    transform: scale(1.01);               /* بزرگنمایی جزئی */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
-}
-
-/* ----- چلو جوجه ویژه ----- */
-.image--chelojoje {
-    width: 100%;                          /* عرض کامل */
-    height: auto;                         /* ارتفاع متناسب */
-    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
-    border-radius: 12px;                  /* گوشه‌های گرد */
-    transition: all 0.3s ease;            /* انیمیشن هاور */
-}
-
-.image--chelojoje:hover {
-    transform: scale(1.01);               /* بزرگنمایی جزئی */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
-}
-
-/* ----- چلو وزیری ویژه ----- */
-.image--chelovaziri {
-    width: 100%;                          /* عرض کامل */
-    height: auto;                         /* ارتفاع متناسب */
-    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
-    border-radius: 12px;                  /* گوشه‌های گرد */
-    transition: all 0.3s ease;            /* انیمیشن هاور */
-}
-
-.image--chelovaziri:hover {
-    transform: scale(1.01);               /* بزرگنمایی جزئی */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
-}
-
-/* ----- چلو مرغ سینه ویژه ----- */
-.image--chelomorghsine {
-    width: 100%;                          /* عرض کامل */
-    height: auto;                         /* ارتفاع متناسب */
-    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
-    border-radius: 12px;                  /* گوشه‌های گرد */
-    transition: all 0.3s ease;            /* انیمیشن هاور */
-}
-
-.image--chelomorghsine:hover {
-    transform: scale(1.01);               /* بزرگنمایی جزئی */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
-}
-
-/* ----- چلو مرغ ران ویژه ----- */
-.image--chelomorghran {
-    width: 100%;                          /* عرض کامل */
-    height: auto;                         /* ارتفاع متناسب */
-    display: block;                       /* نمایش بلوکی (رفع فاصله اضافی) */
-    border-radius: 12px;                  /* گوشه‌های گرد */
-    transition: all 0.3s ease;            /* انیمیشن هاور */
-}
-
-.image--chelomorghran:hover {
-    transform: scale(1.01);               /* بزرگنمایی جزئی */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
-}
-
-/* ==========================================
-   BACK BUTTON - دکمه بازگشت
-========================================== */
-.back-button {
-    width: 100%;                          /* عرض کامل */
-    max-width: 1000px;                    /* حداکثر عرض */
-    margin: 20px auto 0;                  /* فاصله از بالا */
-    display: flex;                        /* چیدمان فلکس */
-    justify-content: center;              /* وسط‌چین افقی */
-}
-
-.back-button__link {
+.menu-card__link {
     display: block;                       /* نمایش بلوکی */
     text-decoration: none;                /* حذف زیرخط */
-    width: 70%;                           /* عرض ۷۰ درصد */
-    transition: transform 0.3s ease;      /* انیمیشن هاور */
 }
 
-.back-button__link:hover {
-    transform: scale(1.02);               /* بزرگنمایی جزئی در هاور */
+.menu-card__link:hover .ticket {
+    transform: scale(1.01);
+    filter: brightness(0.98);
 }
 
-.back-button__image {
-    width: 100%;                          /* عرض کامل */
-    height: auto;                         /* ارتفاع متناسب */
-    display: block;                       /* نمایش بلوکی */
-    border-radius: 12px;                  /* گوشه‌های گرد */
-    transition: all 0.3s ease;            /* انیمیشن هاور */
+.menu-card__box.ticket__gold {
+    min-height: clamp(56px, 14cqw, 90px);
+    padding: clamp(8px, 2cqw, 14px) clamp(16px, 4cqw, 28px);
+    position: relative;
 }
 
-/* هاور روی دکمه بازگشت */
-.back-button__image:hover {
-    transform: scale(1.02);               /* بزرگنمایی جزئی */
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* سایه نرم */
+.menu-card__arrow {
+    position: absolute;
+    right: clamp(14px, 4cqw, 28px);
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(28px, 7cqw, 40px);
+    height: clamp(28px, 7cqw, 40px);
+    border-radius: 50%;
+    background: #1f3555;
+    border: clamp(1.5px, 0.6cqw, 2.5px) solid #b28f57;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.menu-card__arrow svg {
+    width: clamp(10px, 2.6cqw, 14px);
+    height: clamp(10px, 2.6cqw, 14px);
+    stroke: #b28f57;
+    /* فلش به‌سمت راست برای دکمه‌ی "بعدی" در چیدمان راست‌به‌چپ */
+    transform: rotate(180deg);
+}
+
+.menu-card__title {
+    font-family: "AbrBold", "Estedad", sans-serif;
+    font-size: clamp(14px, 4cqw, 24px);
+    color: #1f3555;
+    display: flex;
+    align-items: center;
+    gap: clamp(6px, 1.5cqw, 10px);
+    white-space: nowrap;
+}
+
+.menu-card__title::before,
+.menu-card__title::after {
+    content: "✦";
+    color: #b28f57;
+    font-size: clamp(9px, 2cqw, 14px);
 }
 
 /* ==========================================
@@ -292,90 +321,33 @@ body {
 
 /* ==========================================
    RESPONSIVE - واکنش‌گرایی
+   (اکثر المان‌ها با clamp() به‌صورت پیوسته با سایز صفحه هماهنگ می‌شوند)
 ========================================== */
 
-/* === تبلت و صفحه‌های متوسط === */
 @media (max-width: 768px) {
-    .header-logo {
-        width: 200px;                      /* کاهش لوگو */
-        margin-top: -20px;
-    }
-    
-    .header-banner {
-        width: 300px;                      /* کاهش بنر */
-        margin-top: -20px;
-        margin-bottom: 20px;
-    }
-
-    .info-bar {
-        gap: 10px;                         /* کاهش فاصله */
-        margin: 20px auto;
-    }
-
     .site-wrapper {
         padding-bottom: 40px;              /* کاهش فاصله پایین */
     }
-
-    .menu-grid {
-        gap: 20px;                         /* کاهش فاصله بین منوها */
-    }
-
-    .back-button__link {
-        width: 80%;                        /* افزایش عرض دکمه بازگشت */
-    }
-
-    /* کاهش گردی گوشه‌ها در تبلت */
-    .image--chelokabab,
-    .image--chelojoje,
-    .image--chelovaziri,
-    .image--chelomorghsine,
-    .image--chelomorghran,
-    .back-button__image,
-    .info-icon {
-        border-radius: 10px;
-    }
 }
 
-/* === موبایل و صفحه‌های کوچک === */
 @media (max-width: 480px) {
-    .header-logo {
-        width: 140px;                      /* کاهش بیشتر لوگو */
-        margin-top: -10px;
-    }
-    
-    .header-banner {
-        width: 200px;                      /* کاهش بیشتر بنر */
-        margin-top: -10px;
-        margin-bottom: 15px;
-    }
-
-    .info-bar {
-        gap: 8px;                          /* فاصله کمتر */
-        margin: 15px auto;
-    }
-
-    .menu-grid {
-        gap: 15px;                         /* فاصله کمتر بین منوها */
-    }
-
     .site-wrapper {
         padding-bottom: 30px;              /* کاهش فاصله پایین برای موبایل */
     }
-
-    .back-button__link {
-        width: 90%;                        /* افزایش بیشتر عرض دکمه بازگشت */
-    }
-
-    /* کاهش گردی گوشه‌ها در موبایل */
-    .image--chelokabab,
-    .image--chelojoje,
-    .image--chelovaziri,
-    .image--chelomorghsine,
-    .image--chelomorghran,
-    .back-button__image,
-    .info-icon {
-        border-radius: 8px;
-    }
+}
+/* ==========================================
+   FALLBACK - برای مرورگرهای قدیمی که از Container Queries
+   پشتیبانی نمی‌کنند (اندازه‌های ثابت و امن جایگزین می‌شوند)
+========================================== */
+@supports not (container-type: inline-size) {
+    .header-logo { width: 220px; }
+    .header-title__text { font-size: 22px; }
+    .header-title__line { width: 40px; }
+    .info-icon span { font-size: 12px; }
+    .info-icon svg { width: 16px; height: 16px; }
+    .menu-card__title { font-size: 18px; }
+    .menu-card__arrow { width: 32px; height: 32px; }
+    .menu-card__arrow svg { width: 12px; height: 12px; }
 }
     </style>
 
@@ -394,71 +366,126 @@ body {
         HEADER - بخش سرصفحه
         ========================================== -->
         <header class="site-header">
-            <!-- لوگوی رستوران -->
-            <img src="../Img/Menu_Vizhe/logo_Hatam.png" alt="لوگوی رستوران حاتم" class="header-logo">
-            
-            <!-- بنر عنوان منوی ویژه -->
-            <img src="../Img/Menu_Vizhe/Menu_Vizhe_Title.png" alt="منوی ویژه حاتم" class="header-banner">
+            <!-- لوگوی رستوران (همچنان تصویر) -->
+            <img src="../Img/Menu_HomePage/logo_Hatam.png" alt="لوگوی رستوران حاتم" class="header-logo">
+
+            <!-- عنوان منو - ساخته‌شده با کد به‌جای تصویر -->
+            <div class="header-title">
+                <span class="header-title__line"></span>
+                <span class="header-title__text">منوی رستوران</span>
+                <span class="header-title__line"></span>
+            </div>
         </header>
 
         <!-- ==========================================
-        INFO BAR - نوار اطلاعات تماس
+        INFO BAR - نوار اطلاعات تماس (ساخته‌شده با کد)
         ========================================== -->
         <div class="info-bar">
             <!-- تماس تلفنی -->
             <a href="tel:05632742555" class="info-link">
-                <img src="../Img/Menu_Vizhe/call.webp" alt="تماس با ما" class="info-icon">
+                <span class="ticket">
+                    <span class="ticket__inner">
+                        <span class="ticket__gold info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                            <span>تماس با ما<br>۰۵۶۳۲۷۴۲۵۵۵</span>
+                        </span>
+                    </span>
+                </span>
             </a>
             <!-- ساعت کاری -->
             <a href="#" class="info-link">
-                <img src="../Img/Menu_Vizhe/time.webp" alt="ساعت کاری" class="info-icon">
+                <span class="ticket">
+                    <span class="ticket__inner">
+                        <span class="ticket__gold info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                            <span>ساعت کاری<br>۱۱:۰۰ تا ۱۶:۰۰</span>
+                        </span>
+                    </span>
+                </span>
             </a>
             <!-- آدرس (باز شدن در نقشه) -->
             <a href="https://nshn.ir/36_brkjz0dpaQQ" target="_blank" class="info-link">
-                <img src="../Img/Menu_Vizhe/Addres.webp" alt="آدرس رستوران" class="info-icon">
+                <span class="ticket">
+                    <span class="ticket__inner">
+                        <span class="ticket__gold info-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            <span>فردوس، اسلامیه<br>بین امام خمینی ۱۶،۱۸</span>
+                        </span>
+                    </span>
+                </span>
             </a>
         </div>
 
         <!-- ==========================================
-        MAIN MENU - منوی ویژه
+        MAIN MENU - منوی اصلی دسته‌بندی‌ها (ساخته‌شده با کد)
         ========================================== -->
         <main class="menu-grid">
-            
-            <!-- ====== چلو کباب ویژه ====== -->
-            <div class="menu-card menu-card--chelokabab">
-                <img src="../Img/Menu_Vizhe/Chelokabab_vizhe.webp" alt="چلو کباب ویژه" class="image--chelokabab">
+
+            <!-- ====== منوی ویژه حاتم ====== -->
+            <div class="menu-card menu-card--vip">
+                <a href="Menu_Vizhe.html" class="menu-card__link">
+                    <span class="ticket">
+                        <span class="ticket__inner">
+                            <span class="ticket__gold menu-card__box">
+                                <span class="menu-card__title">منوی ویژه حاتم</span>
+                                <span class="menu-card__arrow">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </a>
             </div>
 
-            <!-- ====== چلو جوجه ویژه ====== -->
-            <div class="menu-card menu-card--chelojoje">
-                <img src="../Img/Menu_Vizhe/Chelojoje_Vizhe.webp" alt="چلو جوجه ویژه" class="image--chelojoje">
+            <!-- ====== منوی اقتصادی حاتم ====== -->
+            <div class="menu-card menu-card--economy">
+                <a href="./Menu_Eghtesadi.html" class="menu-card__link">
+                    <span class="ticket">
+                        <span class="ticket__inner">
+                            <span class="ticket__gold menu-card__box">
+                                <span class="menu-card__title">منوی اقتصادی حاتم</span>
+                                <span class="menu-card__arrow">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </a>
             </div>
 
-            <!-- ====== چلو وزیری ویژه ====== -->
-            <div class="menu-card menu-card--chelovaziri">
-                <img src="../Img/Menu_Vizhe/Chelovaziri_Vzhe.webp" alt="چلو وزیری ویژه" class="image--chelovaziri">
+            <!-- ====== منوی مخلفات ====== -->
+            <div class="menu-card menu-card--sides">
+                <a href="./Menu_Mokhalafat.html" class="menu-card__link">
+                    <span class="ticket">
+                        <span class="ticket__inner">
+                            <span class="ticket__gold menu-card__box">
+                                <span class="menu-card__title">منوی مخلفات</span>
+                                <span class="menu-card__arrow">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </a>
             </div>
 
-            <!-- ====== چلو مرغ سینه ویژه ====== -->
-            <div class="menu-card menu-card--chelomorghsine">
-                <img src="../Img/Menu_Vizhe/Chelomorgh_Sine_Vizhe.webp" alt="چلو مرغ سینه ویژه" class="image--chelomorghsine">
-            </div>
-
-            <!-- ====== چلو مرغ ران ویژه ====== -->
-            <div class="menu-card menu-card--chelomorghran">
-                <img src="../Img/Menu_Vizhe/Chelomorgh_Ran_Vizhe.webp" alt="چلو مرغ ران ویژه" class="image--chelomorghran">
+            <!-- ====== منوی نوشیدنی ====== -->
+            <div class="menu-card menu-card--drinks">
+                <a href="./Menu_Noshidani.html" class="menu-card__link">
+                    <span class="ticket">
+                        <span class="ticket__inner">
+                            <span class="ticket__gold menu-card__box">
+                                <span class="menu-card__title">منوی نوشیدنی</span>
+                                <span class="menu-card__arrow">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+                                </span>
+                            </span>
+                        </span>
+                    </span>
+                </a>
             </div>
 
         </main>
-
-        <!-- ==========================================
-        BACK BUTTON - دکمه بازگشت به صفحه اصلی
-        ========================================== -->
-        <div class="back-button">
-            <a href="index.html" class="back-button__link">
-                <img src="../Img/Menu_Vizhe/bazgasht.webp" alt="بازگشت به صفحه اصلی" class="back-button__image">
-            </a>
-        </div>
 
     </div>
     <!-- پایان wrapper -->
