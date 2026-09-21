@@ -1,493 +1,1917 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <!-- ==========================================
-    META TAGS - تنظیمات پایه سند
-    ========================================== -->
-    <meta charset="UTF-8"> <!-- رمزگذاری فارسی -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- واکنش‌گرایی -->
-    <title>منوی رستوران حاتم</title> <!-- عنوان برگه مرورگر -->
-
-    <!-- ==========================================
-    STYLESHEETS - لینک به فایل‌های سبک
-    ========================================== -->
-    <style>
-/* ==========================================
-   RESET & BASE - ریست و تنظیمات پایه
-========================================== */
-* {
-    margin: 0;                 /* حذف حاشیه پیش‌فرض */
-    padding: 0;                /* حذف فاصله داخلی پیش‌فرض */
-    box-sizing: border-box;    /* محاسبه عرض شامل padding و border */
-}
-
-/* ==========================================
-   BODY - بدنه اصلی صفحه
-========================================== */
-body {
-    width: 100%;                          /* عرض کامل صفحه */
-    min-height: 100vh;                    /* حداقل ارتفاع برابر viewport */
-    display: flex;                        /* چیدمان فلکس */
-    flex-direction: column;               /* ترتیب عمودی */
-    align-items: center;                  /* وسط‌چین افقی */
-    background-color: #f5efe7;            /* رنگ پس‌زمینه کرم */
-    animation: fadeIn 2s ease;            /* انیمیشن محو شدن در بارگذاری */
-    overflow-x: hidden;                   /* جلوگیری از اسکرول افقی */
-    font-family: "Estedad", sans-serif;   /* فونت پیش‌فرض */
-}
-
-/* ==========================================
-   FONT FACES - تعریف فونت‌های سفارشی
-========================================== */
-@font-face {
-    font-family: "Estedad";               /* نام فونت */
-    src: url("../Fonts/Estedad-Bold.woff2") format("woff2"); /* مسیر فایل */
-    font-display: swap;                   /* نمایش سریع‌تر */
-}
-
-@font-face {
-    font-family: "Colack";
-    src: url("../Fonts/ColakFAnum.woff2") format("woff2");
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Morabba";
-    src: url("../Fonts/Morabba-Bold.woff2") format("woff2");
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "Abr";
-    src: url("../Fonts/AbarLow-Black.woff2") format("woff2");
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "AbrBold";               /* فونت ضخیم برای عنوان‌ها */
-    src: url("../Fonts/AbarHigh-ExtraBold.woff2") format("woff2");
-    font-display: swap;
-}
-
-/* ==========================================
-   WRAPPER - کانتینر اصلی تمام محتوا
-========================================== */
-.site-wrapper {
-    flex: 1;                              /* کشیده شدن برای پر کردن فضا */
-    width: 100%;                          /* عرض کامل */
-    max-width: 560px;                     /* حداکثر عرض - مثل نمای یک اپ موبایل */
-    display: flex;                        /* چیدمان فلکس */
-    flex-direction: column;               /* ترتیب عمودی */
-    padding: 0 16px 60px;                 /* فاصله از کناره‌ها و پایین صفحه */
-    margin: 0 auto;                       /* وسط‌چین در صفحه‌های عریض */
-    container-type: inline-size;          /* مبنای محاسبه‌ی واحد cqw برای فرزندان */
-}
-
-/* ==========================================
-   HEADER - سرصفحه (لوگو و بنر)
-========================================== */
-.site-header {
-    width: 100%;                          /* عرض کامل */
-    display: flex;                        /* چیدمان فلکس */
-    flex-direction: column;               /* عمودی */
-    align-items: center;                  /* وسط‌چین */
-    margin: 0 auto;                       /* مرکز قرارگیری */
-}
-
-.header-logo {
-    width: clamp(140px, 62cqw, 320px);    /* عرض لوگو - پیوسته با اندازه صفحه */
-    height: auto;                         /* ارتفاع متناسب */
-    margin-top: clamp(-16px, -5cqw, -35px); /* جابجایی به سمت بالا */
-    display: block;                       /* نمایش بلوکی */
-}
-
-/* ==========================================
-   HEADER TITLE - عنوان «منوی رستوران حاتم» (جایگزین کد‌ی تصویر)
-========================================== */
-.header-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: clamp(8px, 3cqw, 16px);
-    margin-top: -10px;
-    margin-bottom: clamp(16px, 4cqw, 35px);
-}
-
-.header-title__line {
-    height: 2px;
-    width: clamp(24px, 8cqw, 70px);
-    background: linear-gradient(90deg, transparent, #b28f57, transparent);
-}
-
-.header-title__text {
-    font-family: "AbrBold", "Estedad", sans-serif;
-    font-size: clamp(17px, 4.6cqw, 30px);
-    color: #1f3555;
-    white-space: nowrap;
-}
-
-/* ==========================================
-   TICKET NOTCH SHAPE - شکل بلیطی با گوشه‌های بریده
-   (استفاده مشترک در info-icon و menu-card__box)
-========================================== */
-.ticket {
-    --notch: clamp(9px, 2.6cqw, 16px);
-    --gap: clamp(2px, 0.8cqw, 4px);
-    position: relative;
-    display: block;
-    width: 100%;
-    background: #1f3555;
-    padding: var(--gap);
-    box-sizing: border-box;
-    clip-path: polygon(
-        var(--notch) 0%, calc(100% - var(--notch)) 0%,
-        calc(100% - var(--notch)) var(--notch), 100% var(--notch),
-        100% calc(100% - var(--notch)), calc(100% - var(--notch)) calc(100% - var(--notch)),
-        calc(100% - var(--notch)) 100%, var(--notch) 100%,
-        var(--notch) calc(100% - var(--notch)), 0% calc(100% - var(--notch)),
-        0% var(--notch), var(--notch) var(--notch)
-    );
-    transition: transform 0.25s ease, filter 0.25s ease;
-}
-
-.ticket__inner {
-    display: block;
-    background: #fff;
-    padding: var(--gap);
-    box-sizing: border-box;
-    clip-path: polygon(
-        var(--notch) 0%, calc(100% - var(--notch)) 0%,
-        calc(100% - var(--notch)) var(--notch), 100% var(--notch),
-        100% calc(100% - var(--notch)), calc(100% - var(--notch)) calc(100% - var(--notch)),
-        calc(100% - var(--notch)) 100%, var(--notch) 100%,
-        var(--notch) calc(100% - var(--notch)), 0% calc(100% - var(--notch)),
-        0% var(--notch), var(--notch) var(--notch)
-    );
-}
-
-.ticket__gold {
-    border: 1.4px solid #b28f57;
-    clip-path: polygon(
-        var(--notch) 0%, calc(100% - var(--notch)) 0%,
-        calc(100% - var(--notch)) var(--notch), 100% var(--notch),
-        100% calc(100% - var(--notch)), calc(100% - var(--notch)) calc(100% - var(--notch)),
-        calc(100% - var(--notch)) 100%, var(--notch) 100%,
-        var(--notch) calc(100% - var(--notch)), 0% calc(100% - var(--notch)),
-        0% var(--notch), var(--notch) var(--notch)
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-}
-
-/* ==========================================
-   INFO BAR - نوار اطلاعات تماس (ساخته‌شده با کد به‌جای تصویر)
-========================================== */
-.info-bar {
-    width: 100%;                          /* عرض کامل */
-    display: flex;                        /* چیدمان فلکس */
-    justify-content: center;              /* وسط‌چین افقی */
-    align-items: stretch;                 /* هم‌ارتفاع کردن کادرها */
-    gap: clamp(8px, 2.5cqw, 15px);         /* فاصله بین آیتم‌ها */
-    margin: clamp(18px, 4cqw, 35px) auto;  /* فاصله از اطراف */
-}
-
-.info-link {
-    flex: 1;                              /* تقسیم فضای مساوی */
-    display: block;                       /* نمایش بلوکی */
-    text-decoration: none;                /* حذف زیرخط */
-    min-width: 0;                         /* اجازه‌ی جمع‌شدن در فلکس */
-}
-
-/* هاور روی لینک‌های اطلاعات */
-.info-link:hover .ticket {
-    transform: scale(1.03);               /* بزرگنمایی */
-    filter: brightness(0.97);
-}
-
-.info-icon.ticket__gold {
-    flex-direction: row;
-    gap: clamp(4px, 1.5cqw, 8px);
-    min-height: clamp(52px, 13cqw, 78px);
-    padding: clamp(6px, 2cqw, 12px);
-}
-
-.info-icon svg {
-    width: clamp(14px, 4cqw, 20px);
-    height: clamp(14px, 4cqw, 20px);
-    flex-shrink: 0;
-    stroke: #b28f57;
-}
-
-.info-icon span {
-    font-family: "AbrBold", "Estedad", sans-serif;
-    color: #1f3555;
-    font-size: clamp(10px, 2.6cqw, 14px);
-    line-height: 1.5;
-    text-align: center;
-    white-space: nowrap;
-}
-
-/* ==========================================
-   MENU GRID - شبکه منوها
-========================================== */
-.menu-grid {
-    width: 100%;                          /* عرض کامل */
-    display: flex;                        /* چیدمان فلکس */
-    flex-direction: column;               /* ترتیب عمودی */
-    gap: clamp(16px, 4cqw, 30px);          /* فاصله بین آیتم‌ها */
-    flex: 1;                              /* کشیده شدن برای پر کردن فضا */
-}
-
-/* ==========================================
-   MENU CARD - کارت هر منو (ساخته‌شده با کد به‌جای تصویر)
-========================================== */
-.menu-card {
-    width: 100%;                          /* عرض کامل */
-    height: auto;                         /* ارتفاع متناسب */
-}
-
-.menu-card__link {
-    display: block;                       /* نمایش بلوکی */
-    text-decoration: none;                /* حذف زیرخط */
-}
-
-.menu-card__link:hover .ticket {
-    transform: scale(1.01);
-    filter: brightness(0.98);
-}
-
-.menu-card__box.ticket__gold {
-    min-height: clamp(56px, 14cqw, 90px);
-    padding: clamp(8px, 2cqw, 14px) clamp(16px, 4cqw, 28px);
-    position: relative;
-}
-
-.menu-card__arrow {
-    position: absolute;
-    right: clamp(14px, 4cqw, 28px);
-    top: 50%;
-    transform: translateY(-50%);
-    width: clamp(28px, 7cqw, 40px);
-    height: clamp(28px, 7cqw, 40px);
-    border-radius: 50%;
-    background: #1f3555;
-    border: clamp(1.5px, 0.6cqw, 2.5px) solid #b28f57;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.menu-card__arrow svg {
-    width: clamp(10px, 2.6cqw, 14px);
-    height: clamp(10px, 2.6cqw, 14px);
-    stroke: #b28f57;
-    /* فلش به‌سمت راست برای دکمه‌ی "بعدی" در چیدمان راست‌به‌چپ */
-    transform: rotate(180deg);
-}
-
-.menu-card__title {
-    font-family: "AbrBold", "Estedad", sans-serif;
-    font-size: clamp(14px, 4cqw, 24px);
-    color: #1f3555;
-    display: flex;
-    align-items: center;
-    gap: clamp(6px, 1.5cqw, 10px);
-    white-space: nowrap;
-}
-
-.menu-card__title::before,
-.menu-card__title::after {
-    content: "✦";
-    color: #b28f57;
-    font-size: clamp(9px, 2cqw, 14px);
-}
-
-/* ==========================================
-   ANIMATIONS - انیمیشن‌ها
-========================================== */
-@keyframes fadeIn {
-    from {
-        opacity: 0;                        /* شروع: مخفی */
-        transform: translateY(15px);       /* پایین‌تر */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>برنامه‌ریز روزانه</title>
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/gh/rastikerdar/lalezar-font@v4.0.0/dist/font-face.css" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF7F0;
+    --ink:#22201B;
+    --line:#C9BFA8;
+    --brand:#7A3B2E;
+    --brand-deep:#4E2A22;
+    --accent:#B8935A;
+    --panel:#FFFFFF;
+    --muted:#8a8272;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#1A1815;
+      --ink:#F0EBE0;
+      --line:#4A4438;
+      --brand:#C98A7A;
+      --brand-deep:#E8B4A8;
+      --accent:#D4B27C;
+      --panel:#232019;
+      --muted:#9a9282;
     }
-    to {
-        opacity: 1;                        /* پایان: قابل مشاهده */
-        transform: translateY(0);          /* موقعیت اصلی */
-    }
-}
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Vazirmatn',sans-serif;
+    min-height:100vh;
+    padding:20px 14px 96px;
+    transition:background .2s, color .2s;
+  }
+  .wrap{max-width:900px;margin:0 auto;}
 
-/* ==========================================
-   RESPONSIVE - واکنش‌گرایی
-   (اکثر المان‌ها با clamp() به‌صورت پیوسته با سایز صفحه هماهنگ می‌شوند)
-========================================== */
+  .page{display:none;}
+  .page.active{display:block;animation:fadeIn .15s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
 
-@media (max-width: 768px) {
-    .site-wrapper {
-        padding-bottom: 40px;              /* کاهش فاصله پایین */
-    }
-}
+  /* bottom nav */
+  .bottom-nav{
+    position:fixed;
+    bottom:0; left:0; right:0;
+    background:var(--panel);
+    border-top:1.5px solid var(--ink);
+    display:flex;
+    justify-content:space-around;
+    padding:6px 4px calc(6px + env(safe-area-inset-bottom));
+    z-index:50;
+  }
+  .bottom-nav button{
+    flex:1;
+    background:none;
+    border:none;
+    font-family:'Vazirmatn',sans-serif;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    padding:6px 2px;
+    cursor:pointer;
+    color:var(--muted);
+    font-size:10.5px;
+    border-radius:10px;
+    transition:background .15s, color .15s;
+  }
+  .bottom-nav button .ic{font-size:19px;line-height:1;}
+  .bottom-nav button.active{color:var(--brand);background:rgba(184,147,90,.16);}
 
-@media (max-width: 480px) {
-    .site-wrapper {
-        padding-bottom: 30px;              /* کاهش فاصله پایین برای موبایل */
-    }
-}
-/* ==========================================
-   FALLBACK - برای مرورگرهای قدیمی که از Container Queries
-   پشتیبانی نمی‌کنند (اندازه‌های ثابت و امن جایگزین می‌شوند)
-========================================== */
-@supports not (container-type: inline-size) {
-    .header-logo { width: 220px; }
-    .header-title__text { font-size: 22px; }
-    .header-title__line { width: 40px; }
-    .info-icon span { font-size: 12px; }
-    .info-icon svg { width: 16px; height: 16px; }
-    .menu-card__title { font-size: 18px; }
-    .menu-card__arrow { width: 32px; height: 32px; }
-    .menu-card__arrow svg { width: 12px; height: 12px; }
-}
-    </style>
+  /* header */
+  .head{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    border-bottom:3px solid var(--ink);
+    padding-bottom:18px;
+    margin-bottom:22px;
+    gap:16px;
+  }
+  .head-date{
+    font-family:'Lalezar',sans-serif;
+    line-height:1;
+    cursor:pointer;
+    border-radius:8px;
+    padding:2px 6px;
+    transition:background .15s;
+  }
+  .head-date:hover{background:rgba(184,147,90,.12);}
+  .head-date .num{font-size:64px;color:var(--brand);display:block;transition:color .15s;}
+  .head-date:hover .num{color:var(--brand-deep);}
+  .head-date .day{font-size:20px;margin-top:4px;display:block;}
+  .head-date .full{font-size:13px;color:var(--muted);margin-top:6px;display:block;font-family:'Vazirmatn',sans-serif;}
+  .nav-btns{display:flex;gap:8px;align-self:center;flex-wrap:wrap;}
+  .nav-btns button{
+    font-family:'Vazirmatn',sans-serif;
+    border:1.5px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    padding:8px 14px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:14px;
+    transition:all .12s;
+  }
+  .nav-btns button:hover{background:var(--ink);color:var(--paper);}
 
-    <!-- ==========================================
-    FAVICON - آیکون مرورگر
-    ========================================== -->
-    <link rel="icon" href="../Img/Favicon.svg" type="image/svg+xml"> <!-- آیکون برگه -->
+  /* backup reminder */
+  #backupReminder{
+    padding:10px 14px;
+    background:rgba(184,147,90,.14);
+    border:1px dashed var(--accent);
+    border-radius:8px;
+    margin-bottom:14px;
+    font-size:12.5px;
+    line-height:1.7;
+  }
+  #backupReminder button{
+    border:none;background:none;color:var(--brand);
+    cursor:pointer;text-decoration:underline;
+    font-family:inherit;font-size:inherit;padding:0 4px;
+  }
+
+  /* notes */
+  .notes-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px;}
+  .note-box{
+    border:1.5px solid var(--ink);
+    border-radius:10px;
+    padding:14px 16px;
+    background:var(--panel);
+    min-height:78px;
+  }
+  .note-box h3{
+    font-family:'Lalezar',sans-serif;
+    font-weight:400;
+    font-size:18px;
+    margin:0 0 8px;
+    color:var(--brand-deep);
+  }
+  .note-box textarea{
+    width:100%;
+    border:none;
+    background:transparent;
+    resize:none;
+    font-family:'Vazirmatn',sans-serif;
+    font-size:14px;
+    color:var(--ink);
+    min-height:60px;
+    outline:none;
+    line-height:1.9;
+    overflow:hidden;
+  }
+
+  /* hour table */
+  .table-card{
+    border:1.5px solid var(--ink);
+    border-radius:10px;
+    overflow:hidden;
+    margin-bottom:22px;
+    background:var(--panel);
+    padding:16px;
+  }
+  .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+  .legend button{
+    font-family:'Vazirmatn',sans-serif;
+    font-size:13px;
+    border:1.5px solid var(--ink);
+    border-radius:20px;
+    padding:6px 14px;
+    cursor:pointer;
+    background:transparent;
+    color:var(--ink);
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+  .legend button .dot{
+    width:11px;height:11px;
+    border-radius:50%;
+    display:inline-block;
+    border:1px solid rgba(0,0,0,.2);
+    flex-shrink:0;
+  }
+  .legend button.active{color:#fff;border-color:transparent;}
+  .legend button.eraser{border-style:dashed;}
+  .legend .cat-name{
+    border:none;
+    background:transparent;
+    font-family:'Vazirmatn',sans-serif;
+    font-size:13px;
+    color:inherit;
+    cursor:pointer;
+    padding:0;
+    outline:none;
+    min-width:2ch;
+    max-width:16ch;
+  }
+  .legend .cat-name:focus{cursor:text;border-bottom:1px dotted currentColor;}
+
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+  .toolbar button{
+    font-family:'Vazirmatn',sans-serif;
+    font-size:12.5px;
+    border:1.5px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    padding:7px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:all .12s;
+  }
+  .toolbar button:hover:not(:disabled){background:var(--ink);color:var(--paper);}
+  .toolbar button:disabled{opacity:.35;cursor:not-allowed;}
+
+  .hour-block{margin-bottom:10px;}
+  .hour-block:last-child{margin-bottom:0;}
+  .hour-block-label{
+    font-size:11px;
+    color:var(--muted);
+    font-weight:600;
+    margin:0 0 5px;
+    letter-spacing:.3px;
+  }
+  .hour-grid{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:4px;
+    user-select:none;
+    -webkit-user-select:none;
+    touch-action:none;
+  }
+  .hour-cell{
+    position:relative;
+    border:1.5px solid var(--line);
+    border-radius:6px;
+    min-height:52px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    background:var(--paper);
+    transition:transform .05s;
+  }
+  .hour-cell:active{transform:scale(.96);}
+  .hour-cell .hn{font-size:11px;color:var(--muted);font-weight:600;}
+  .hour-cell.filled .hn{color:rgba(255,255,255,.85);}
+  .hour-cell .hl{font-size:10.5px;margin-top:2px;color:#fff;text-align:center;line-height:1.2;padding:0 2px;}
+  .hour-cell.dragging{outline:2px solid var(--brand);outline-offset:1px;}
+  @media (max-width:720px){
+    .hour-cell{min-height:42px;}
+    .hour-cell .hn{font-size:10px;}
+    .hour-cell .hl{font-size:9px;}
+  }
+
+  /* columns */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .col{
+    border:1.5px solid var(--ink);
+    border-radius:10px;
+    background:var(--panel);
+    padding:14px 16px 16px;
+  }
+  .col h3{
+    font-family:'Lalezar',sans-serif;
+    font-weight:400;
+    font-size:19px;
+    margin:0 0 12px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--accent);
+    color:var(--brand-deep);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .task-controls{display:flex;gap:6px;}
+  .task-controls button{
+    width:24px;height:24px;
+    border-radius:50%;
+    border:1.5px solid var(--brand-deep);
+    background:transparent;
+    color:var(--brand-deep);
+    font-family:'Vazirmatn',sans-serif;
+    font-size:15px;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+  }
+  .task-controls button:hover{background:var(--brand-deep);color:var(--paper);}
+
+  .task-list{list-style:none;margin:0;padding:0;}
+  .task-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:8px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .task-row:last-child{border-bottom:none;}
+  .task-row input[type=text]{
+    flex:1;
+    border:none;
+    background:transparent;
+    font-family:'Vazirmatn',sans-serif;
+    font-size:14px;
+    outline:none;
+    padding:2px 0;
+    color:var(--ink);
+    min-width:0;
+  }
+  .task-row input[type=text]::placeholder{color:var(--muted);}
+  .task-row .streak{
+    font-size:11px;
+    color:var(--accent);
+    font-weight:700;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .task-row .row-del{
+    border:none;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    font-size:15px;
+    padding:2px 6px;
+    border-radius:4px;
+    line-height:1;
+    flex-shrink:0;
+    font-family:inherit;
+  }
+  .task-row .row-del:hover{color:#a3453a;}
+
+  input[type=checkbox]{
+    appearance:none;
+    -webkit-appearance:none;
+    width:18px;height:18px;
+    border:1.5px solid var(--ink);
+    border-radius:50%;
+    cursor:pointer;
+    flex-shrink:0;
+    position:relative;
+    background:transparent;
+  }
+  input[type=checkbox]:checked{
+    background:var(--brand);
+    border-color:var(--brand);
+  }
+  input[type=checkbox]:checked::after{
+    content:'';
+    position:absolute;
+    left:5px;top:2px;
+    width:5px;height:9px;
+    border:solid var(--paper);
+    border-width:0 2px 2px 0;
+    transform:rotate(40deg);
+  }
+  .task-row.done input[type=text]{
+    text-decoration:line-through;
+    color:var(--muted);
+  }
+
+  /* money */
+  .money-area{
+    width:100%;
+    min-height:70px;
+    border:none;
+    background:transparent;
+    font-family:'Vazirmatn',sans-serif;
+    font-size:14px;
+    resize:none;
+    outline:none;
+    color:var(--ink);
+    line-height:1.9;
+    overflow:hidden;
+  }
+  .ledger{margin-top:12px;border-top:1.5px dashed var(--line);padding-top:12px;}
+  .ledger-head{
+    display:grid;
+    grid-template-columns:1fr 110px 90px 28px;
+    gap:6px;
+    font-size:11px;
+    color:var(--muted);
+    font-weight:600;
+    padding:0 0 6px;
+    border-bottom:1px solid var(--line);
+  }
+  .ledger-row{
+    display:grid;
+    grid-template-columns:1fr 110px 90px 28px;
+    gap:6px;
+    padding:6px 0;
+    align-items:center;
+    border-bottom:1px dashed var(--line);
+  }
+  .ledger-row input, .ledger-row select{
+    border:1px solid var(--line);
+    border-radius:5px;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Vazirmatn',sans-serif;
+    font-size:13px;
+    padding:5px 6px;
+    outline:none;
+    width:100%;
+    min-width:0;
+  }
+  .ledger-row input:focus, .ledger-row select:focus{border-color:var(--brand);}
+  .ledger-row .amt{text-align:left;direction:ltr;font-variant-numeric:tabular-nums;}
+  .ledger-row .row-del{
+    border:none;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    font-size:15px;
+    padding:0;
+    line-height:1;
+    font-family:inherit;
+  }
+  .ledger-row .row-del:hover{color:#a3453a;}
+  .ledger-total{
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:10px;
+    padding-top:10px;
+    border-top:2px solid var(--accent);
+    font-size:12.5px;
+  }
+  .ledger-total .tot{display:flex;gap:4px;align-items:baseline;}
+  .ledger-total .tot b{color:var(--brand-deep);font-variant-numeric:tabular-nums;}
+  .ledger-total .net.positive b{color:#2F6F5E;}
+  .ledger-total .net.negative b{color:#a3453a;}
+
+  /* stats */
+  .stat-card{
+    border:1.5px solid var(--ink);
+    border-radius:10px;
+    background:var(--panel);
+    padding:14px 16px;
+    margin-bottom:14px;
+  }
+  .stat-card h3{
+    font-family:'Lalezar',sans-serif;
+    font-weight:400;
+    font-size:19px;
+    margin:0 0 12px;
+    padding-bottom:8px;
+    border-bottom:2px solid var(--accent);
+    color:var(--brand-deep);
+  }
+  .stat-bar{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin:7px 0;
+    font-size:13px;
+  }
+  .stat-bar .lbl{width:90px;flex-shrink:0;font-weight:500;}
+  .stat-bar .track{
+    flex:1;
+    height:14px;
+    background:rgba(0,0,0,.07);
+    border-radius:7px;
+    overflow:hidden;
+  }
+  .stat-bar .fill{
+    display:block;
+    height:100%;
+    transition:width .35s;
+    border-radius:7px;
+  }
+  .stat-bar .val{width:64px;text-align:left;font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums;}
+  .stat-empty{color:var(--muted);font-size:13px;text-align:center;padding:14px;}
+
+  .week-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:5px;
+  }
+  .week-day{
+    border:1.5px solid var(--line);
+    border-radius:6px;
+    padding:6px 3px 5px;
+    text-align:center;
+    cursor:pointer;
+    background:var(--paper);
+    transition:border-color .12s, transform .08s;
+  }
+  .week-day:hover{border-color:var(--brand);}
+  .week-day:active{transform:scale(.96);}
+  .week-day.today{border-color:var(--brand);border-width:2px;}
+  .week-day .wd-name{color:var(--muted);font-size:10px;}
+  .week-day .wd-num{
+    font-family:'Lalezar',sans-serif;
+    font-size:18px;
+    color:var(--brand);
+    margin:1px 0 2px;
+    line-height:1;
+  }
+  .week-day .wd-bar{
+    height:5px;
+    border-radius:2.5px;
+    margin-top:4px;
+    background:rgba(0,0,0,.07);
+    overflow:hidden;
+    display:flex;
+  }
+  .week-day .wd-bar span{display:block;height:100%;}
+
+  .progress-ring-wrap{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .progress-ring{
+    width:74px;height:74px;
+    border-radius:50%;
+    background:conic-gradient(var(--brand) 0deg, rgba(0,0,0,.08) 0deg);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    position:relative;
+    transition:background .3s;
+  }
+  .progress-ring::after{
+    content:'';
+    position:absolute;
+    inset:8px;
+    border-radius:50%;
+    background:var(--panel);
+  }
+  .progress-ring span{
+    position:relative;
+    z-index:1;
+    font-family:'Lalezar',sans-serif;
+    font-size:20px;
+    color:var(--brand-deep);
+  }
+  .progress-legend{font-size:12.5px;color:var(--muted);line-height:2;}
+  .progress-legend b{color:var(--ink);font-variant-numeric:tabular-nums;}
+
+  /* modal */
+  .modal-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    z-index:100;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:14px;
+  }
+  .modal-backdrop.show{display:flex;animation:fadeIn .15s;}
+  .modal{
+    background:var(--panel);
+    border:1.5px solid var(--ink);
+    border-radius:12px;
+    padding:16px;
+    max-width:420px;
+    width:100%;
+    max-height:88vh;
+    overflow:auto;
+  }
+  .modal h3{
+    font-family:'Lalezar',sans-serif;
+    font-weight:400;
+    margin:0 0 12px;
+    font-size:20px;
+    color:var(--brand-deep);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .modal h3 button{
+    border:none;
+    background:transparent;
+    color:var(--muted);
+    cursor:pointer;
+    font-size:22px;
+    line-height:1;
+    padding:0 4px;
+    font-family:inherit;
+  }
+  .modal h3 button:hover{color:var(--ink);}
+
+  .cal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:10px;
+    font-size:15px;
+    font-weight:600;
+    color:var(--brand-deep);
+  }
+  .cal-head button{
+    border:1.5px solid var(--ink);
+    background:transparent;
+    color:var(--ink);
+    width:30px;height:30px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    font-family:inherit;
+  }
+  .cal-head button:hover{background:var(--ink);color:var(--paper);}
+  .cal-grid{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    gap:3px;
+  }
+  .cal-dow{
+    text-align:center;
+    font-size:10.5px;
+    color:var(--muted);
+    padding:4px 0;
+    font-weight:600;
+  }
+  .cal-day{
+    aspect-ratio:1;
+    border:1.5px solid transparent;
+    border-radius:6px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    font-size:13px;
+    background:transparent;
+    color:var(--ink);
+    position:relative;
+    font-family:'Vazirmatn',sans-serif;
+    transition:background .1s, border-color .1s;
+    padding:0;
+  }
+  .cal-day:hover{background:rgba(184,147,90,.15);}
+  .cal-day.empty{cursor:default;background:transparent;pointer-events:none;}
+  .cal-day.today{border-color:var(--brand);color:var(--brand-deep);font-weight:700;}
+  .cal-day.selected{background:var(--brand);color:#fff;border-color:var(--brand);}
+  .cal-day.has-data::after{
+    content:'';
+    position:absolute;
+    bottom:3px;
+    width:4px;height:4px;
+    border-radius:50%;
+    background:var(--accent);
+  }
+  .cal-day.selected.has-data::after{background:#fff;}
+
+  footer{
+    text-align:center;
+    font-size:12px;
+    color:var(--muted);
+    margin-top:30px;
+    padding-top:14px;
+    border-top:1px dashed var(--line);
+  }
+  footer .links{
+    display:flex;
+    gap:8px;
+    justify-content:center;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  footer button{
+    font-family:'Vazirmatn',sans-serif;
+    font-size:12px;
+    border:1.5px solid var(--line);
+    background:transparent;
+    color:var(--muted);
+    padding:6px 12px;
+    border-radius:6px;
+    cursor:pointer;
+    transition:all .12s;
+  }
+  footer button:hover{border-color:var(--ink);color:var(--ink);}
+
+  /* print */
+  @media print{
+    body{padding:0;background:#fff;color:#000;}
+    .bottom-nav, .nav-btns, .toolbar, footer .links, .modal-backdrop, #backupReminder{display:none !important;}
+    .page{display:none !important;}
+    .page.active{display:block !important;}
+    .col, .table-card, .note-box, .stat-card{border-color:#000 !important;break-inside:avoid;}
+    .head-date{cursor:auto;}
+  }
+
+  @media (max-width:720px){
+    .notes-row{grid-template-columns:1fr;}
+    .grid{grid-template-columns:1fr;}
+    .head-date .num{font-size:48px;}
+    .ledger-head, .ledger-row{grid-template-columns:1fr 84px 74px 24px;font-size:11px;}
+    .bottom-nav button{font-size:9.5px;}
+  }
+</style>
 </head>
 <body>
-    <!-- ==========================================
-    WRAPPER - کانتینر اصلی تمام محتوا
-    ========================================== -->
-    <div class="site-wrapper">
-        
-        <!-- ==========================================
-        HEADER - بخش سرصفحه
-        ========================================== -->
-        <header class="site-header">
-            <!-- لوگوی رستوران (همچنان تصویر) -->
-            <img src="../Img/Menu_HomePage/logo_Hatam.png" alt="لوگوی رستوران حاتم" class="header-logo">
+<div class="wrap">
 
-            <!-- عنوان منو - ساخته‌شده با کد به‌جای تصویر -->
-            <div class="header-title">
-                <span class="header-title__line"></span>
-                <span class="header-title__text">منوی رستوران</span>
-                <span class="header-title__line"></span>
-            </div>
-        </header>
-
-        <!-- ==========================================
-        INFO BAR - نوار اطلاعات تماس (ساخته‌شده با کد)
-        ========================================== -->
-        <div class="info-bar">
-            <!-- تماس تلفنی -->
-            <a href="tel:05632742555" class="info-link">
-                <span class="ticket">
-                    <span class="ticket__inner">
-                        <span class="ticket__gold info-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-                            <span>تماس با ما<br>۰۵۶۳۲۷۴۲۵۵۵</span>
-                        </span>
-                    </span>
-                </span>
-            </a>
-            <!-- ساعت کاری -->
-            <a href="#" class="info-link">
-                <span class="ticket">
-                    <span class="ticket__inner">
-                        <span class="ticket__gold info-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-                            <span>ساعت کاری<br>۱۱:۰۰ تا ۱۶:۰۰</span>
-                        </span>
-                    </span>
-                </span>
-            </a>
-            <!-- آدرس (باز شدن در نقشه) -->
-            <a href="https://nshn.ir/36_brkjz0dpaQQ" target="_blank" class="info-link">
-                <span class="ticket">
-                    <span class="ticket__inner">
-                        <span class="ticket__gold info-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
-                            <span>فردوس، اسلامیه<br>بین امام خمینی ۱۶،۱۸</span>
-                        </span>
-                    </span>
-                </span>
-            </a>
-        </div>
-
-        <!-- ==========================================
-        MAIN MENU - منوی اصلی دسته‌بندی‌ها (ساخته‌شده با کد)
-        ========================================== -->
-        <main class="menu-grid">
-
-            <!-- ====== منوی ویژه حاتم ====== -->
-            <div class="menu-card menu-card--vip">
-                <a href="Menu_Vizhe.html" class="menu-card__link">
-                    <span class="ticket">
-                        <span class="ticket__inner">
-                            <span class="ticket__gold menu-card__box">
-                                <span class="menu-card__title">منوی ویژه حاتم</span>
-                                <span class="menu-card__arrow">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                                </span>
-                            </span>
-                        </span>
-                    </span>
-                </a>
-            </div>
-
-            <!-- ====== منوی اقتصادی حاتم ====== -->
-            <div class="menu-card menu-card--economy">
-                <a href="./Menu_Eghtesadi.html" class="menu-card__link">
-                    <span class="ticket">
-                        <span class="ticket__inner">
-                            <span class="ticket__gold menu-card__box">
-                                <span class="menu-card__title">منوی اقتصادی حاتم</span>
-                                <span class="menu-card__arrow">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                                </span>
-                            </span>
-                        </span>
-                    </span>
-                </a>
-            </div>
-
-            <!-- ====== منوی مخلفات ====== -->
-            <div class="menu-card menu-card--sides">
-                <a href="./Menu_Mokhalafat.html" class="menu-card__link">
-                    <span class="ticket">
-                        <span class="ticket__inner">
-                            <span class="ticket__gold menu-card__box">
-                                <span class="menu-card__title">منوی مخلفات</span>
-                                <span class="menu-card__arrow">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                                </span>
-                            </span>
-                        </span>
-                    </span>
-                </a>
-            </div>
-
-            <!-- ====== منوی نوشیدنی ====== -->
-            <div class="menu-card menu-card--drinks">
-                <a href="./Menu_Noshidani.html" class="menu-card__link">
-                    <span class="ticket">
-                        <span class="ticket__inner">
-                            <span class="ticket__gold menu-card__box">
-                                <span class="menu-card__title">منوی نوشیدنی</span>
-                                <span class="menu-card__arrow">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
-                                </span>
-                            </span>
-                        </span>
-                    </span>
-                </a>
-            </div>
-
-        </main>
-
+  <div class="head">
+    <div class="nav-btns">
+      <button id="prevDay">روز قبل</button>
+      <button id="todayBtn">امروز</button>
+      <button id="nextDay">روز بعد</button>
     </div>
-    <!-- پایان wrapper -->
+    <div class="head-date" id="headDate" title="برای انتخاب روز کلیک کنید">
+      <span class="num" id="dayNum">--</span>
+      <span class="day" id="dayName">--</span>
+      <span class="full" id="fullDate">—</span>
+    </div>
+  </div>
+
+  <div id="backupReminder" style="display:none">
+    🔔 <span class="days">۷</span> روز از آخرین پشتیبان‌گیری گذشته است —
+    <button type="button" id="quickBackupBtn">همین حالا یک پشتیبان بگیر</button>
+  </div>
+
+  <!-- صفحه ۱: یادداشت -->
+  <section class="page active" id="page-notes">
+    <div class="notes-row">
+      <div class="note-box">
+        <h3>شیر یا روباه؟!</h3>
+        <textarea id="note1" placeholder="یادداشت..."></textarea>
+      </div>
+      <div class="note-box">
+        <h3>اصول کافی</h3>
+        <textarea id="note2" placeholder="یادداشت..."></textarea>
+      </div>
+    </div>
+  </section>
+
+  <!-- صفحه ۲: ساعت‌بندی -->
+  <section class="page" id="page-hours">
+    <div class="table-card">
+      <div class="legend" id="legend"></div>
+      <div class="toolbar">
+        <button id="undoBtn" type="button" disabled>↶ واگرد</button>
+        <button id="copyPrevBtn" type="button">کپی از دیروز</button>
+        <button id="clearHoursBtn" type="button">پاک کردن همه</button>
+      </div>
+      <div id="hourBlocks"></div>
+    </div>
+  </section>
+
+  <!-- صفحه ۳: کارها -->
+  <section class="page" id="page-tasks">
+    <div class="grid">
+      <div class="col">
+        <h3>
+          <span>کارهای امروز</span>
+          <span class="task-controls">
+            <button type="button" id="todayAddBtn">+</button>
+          </span>
+        </h3>
+        <ul class="task-list" id="todayTasks"></ul>
+      </div>
+      <div class="col">
+        <h3>
+          <span>کارهای روزانه</span>
+          <span class="task-controls">
+            <button type="button" id="dailyAddBtn">+</button>
+          </span>
+        </h3>
+        <ul class="task-list" id="dailyTasks"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- صفحه ۴: بهداشت -->
+  <section class="page" id="page-habit">
+    <div class="grid" style="grid-template-columns:1fr;">
+      <div class="col">
+        <h3>
+          <span>بهداشت</span>
+          <span class="task-controls">
+            <button type="button" id="habitAddBtn">+</button>
+          </span>
+        </h3>
+        <ul class="task-list" id="habitList"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- صفحه ۵: پول -->
+  <section class="page" id="page-money">
+    <div class="grid" style="grid-template-columns:1fr;">
+      <div class="col">
+        <h3>رفت و آمد و پول</h3>
+        <textarea class="money-area" id="moneyNotes" placeholder="یادداشت کلی..."></textarea>
+        <div class="ledger">
+          <div class="ledger-head">
+            <span>شرح</span>
+            <span>مبلغ (تومان)</span>
+            <span>نوع</span>
+            <span></span>
+          </div>
+          <div id="ledgerRows"></div>
+          <div class="ledger-total">
+            <div class="tot">هزینه: <b id="sumExpense">۰</b></div>
+            <div class="tot">درآمد: <b id="sumIncome">۰</b></div>
+            <div class="tot net" id="netWrap">خالص: <b id="sumNet">۰</b></div>
+          </div>
+          <button type="button" id="addLedgerRow" style="margin-top:10px;border:1.5px dashed var(--line);background:transparent;color:var(--muted);padding:6px 12px;border-radius:6px;cursor:pointer;font-family:inherit;font-size:12.5px;">+ افزودن سطر</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- صفحه ۶: آمار -->
+  <section class="page" id="page-stats">
+    <div class="stat-card">
+      <h3>ساعت‌های امروز</h3>
+      <div id="statsBars"></div>
+    </div>
+    <div class="stat-card">
+      <h3>پیشرفت کارها</h3>
+      <div class="progress-ring-wrap">
+        <div class="progress-ring" id="progressRing"><span id="progressNum">۰٪</span></div>
+        <div class="progress-legend" id="progressLegend">—</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <h3>هفت روز اخیر</h3>
+      <div class="week-grid" id="weekGrid"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="links">
+      <button type="button" id="exportBtn">📤 پشتیبان‌گیری</button>
+      <button type="button" id="importBtn">📥 بازیابی</button>
+      <button type="button" id="printBtn">🖨 چاپ</button>
+    </div>
+    ذخیره‌سازی خودکار در همین مرورگر — Ctrl+Z برای واگرد
+  </footer>
+</div>
+
+<input type="file" id="importFile" accept=".json,application/json" style="display:none">
+
+<nav class="bottom-nav" id="bottomNav">
+  <button data-page="page-notes" class="active"><span class="ic">📝</span>یادداشت</button>
+  <button data-page="page-hours"><span class="ic">🕐</span>ساعت‌بندی</button>
+  <button data-page="page-tasks"><span class="ic">✅</span>کارها</button>
+  <button data-page="page-habit"><span class="ic">🌿</span>بهداشت</button>
+  <button data-page="page-money"><span class="ic">💰</span>پول</button>
+  <button data-page="page-stats"><span class="ic">📊</span>آمار</button>
+</nav>
+
+<div class="modal-backdrop" id="calModal">
+  <div class="modal" role="dialog" aria-modal="true">
+    <h3>
+      <span>انتخاب روز</span>
+      <button id="calClose" type="button" aria-label="بستن">×</button>
+    </h3>
+    <div class="cal-head">
+      <button id="calPrev" type="button" aria-label="ماه قبل">‹</button>
+      <span id="calTitle">—</span>
+      <button id="calNext" type="button" aria-label="ماه بعد">›</button>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ۱. ابزار تاریخ (بر پایه Intl — دقیق‌تر از پیاده‌سازی دستی)
+   ============================================================ */
+let currentDate = new Date();
+let viewMonth   = null; // {y, m} میلادی‌نما در تقویم جلالی
+
+function ymd(d){
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+function storageKey(d){ return 'planner-'+ymd(d); }
+function uid(){ return Math.random().toString(36).slice(2,9); }
+
+const fmtDayJ  = new Intl.DateTimeFormat('fa-IR-u-nu-latn', { day:'numeric' });
+const fmtWeekJ = new Intl.DateTimeFormat('fa-IR', { weekday:'long' });
+const fmtMYJ   = new Intl.DateTimeFormat('fa-IR-u-nu-latn', { month:'long', year:'numeric' });
+
+function jalaliParts(date){
+  const parts = new Intl.DateTimeFormat('en-US-u-ca-persian', {
+    year:'numeric', month:'numeric', day:'numeric'
+  }).formatToParts(date);
+  const o = {};
+  parts.forEach(p => { if(p.type !== 'literal') o[p.type] = p.value; });
+  return { y:+o.year, m:+o.month, d:+o.day };
+}
+
+const jalaliMonths = ['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+const WEEK_SHORT = {
+  'شنبه':'ش','یکشنبه':'ی','دوشنبه':'د','سه‌شنبه':'س',
+  'چهارشنبه':'چ','پنجشنبه':'پ','پنج‌شنبه':'پ','جمعه':'ج'
+};
+const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
+function toFa(n){ return String(n).replace(/\d/g, x => FA_DIGITS[+x]); }
+function escapeHtml(s){
+  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+
+function renderHeader(){
+  document.getElementById('dayNum').textContent  = fmtDayJ.format(currentDate);
+  document.getElementById('dayName').textContent = fmtWeekJ.format(currentDate);
+  const jp = jalaliParts(currentDate);
+  document.getElementById('fullDate').textContent = jalaliMonths[jp.m-1] + ' ' + jp.y;
+}
+
+/* ============================================================
+   ۲. دسته‌بندی‌ها (با ذخیرهٔ برچسب‌ها)
+   ============================================================ */
+const LABELS_KEY = 'planner-category-labels';
+const CATEGORIES = [
+  {key:'doz',   label:'دوز',        color:'#8E5A9C'},
+  {key:'daily', label:'کار روزانه', color:'#2F6F5E'},
+  {key:'today', label:'کار امروز',  color:'#3E6EA8'},
+  {key:'sleep', label:'خواب',       color:'#4A4560'},
+  {key:'delo',  label:'دلوکی',      color:'#B8935A'},
+  {key:'virt',  label:'مجازی',      color:'#B8564A'}
+];
+let activeCategory = null;
+
+function loadCategoryLabels(){
+  try{
+    const raw = localStorage.getItem(LABELS_KEY);
+    if(!raw) return;
+    const saved = JSON.parse(raw);
+    CATEGORIES.forEach(c => { if(saved[c.key]) c.label = saved[c.key]; });
+  }catch(e){ console.error(e); }
+}
+function saveCategoryLabels(){
+  try{
+    const map = {};
+    CATEGORIES.forEach(c => map[c.key] = c.label);
+    localStorage.setItem(LABELS_KEY, JSON.stringify(map));
+  }catch(e){ console.error(e); }
+}
+
+/* ============================================================
+   ۳. قالب روزانه (مشترک بین همه روزها) + وضعیت روز جاری
+   ============================================================ */
+const TEMPLATE_KEY = 'planner-daily-template';
+const BACKUP_KEY   = 'planner-last-backup';
+
+const DEFAULT_HABITS = ['ورزش','آموزش','معراج','آلاء','سوشال مدیا','اسلحه مرد','آب حیات'];
+
+let template = null;
+let state = null;
+
+function loadTemplate(){
+  try{
+    const raw = localStorage.getItem(TEMPLATE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return {
+    daily:  [{id:uid()},{id:uid()},{id:uid()},{id:uid()},{id:uid()}].map(x => ({id:x.id, text:''})),
+    habits: DEFAULT_HABITS.map(t => ({id:uid(), text:t}))
+  };
+}
+function saveTemplate(){
+  try{ localStorage.setItem(TEMPLATE_KEY, JSON.stringify(template)); }catch(e){}
+}
+
+function defaultDayState(){
+  return {
+    note1:'', note2:'', money:'',
+    hours:{},
+    todayTasks: [{},{},{},{},{}],
+    dailyChecks: {},
+    habitChecks: {},
+    ledger: []
+  };
+}
+
+function loadDayState(){
+  let loaded = null;
+  try{
+    const raw = localStorage.getItem(storageKey(currentDate));
+    if(raw) loaded = JSON.parse(raw);
+  }catch(e){ console.error(e); }
+
+  const base = defaultDayState();
+  state = {
+    note1:  loaded?.note1  ?? base.note1,
+    note2:  loaded?.note2  ?? base.note2,
+    money:  loaded?.money  ?? base.money,
+    hours:  loaded?.hours  || {},
+    todayTasks: (loaded?.todayTasks && loaded.todayTasks.length) ? loaded.todayTasks : base.todayTasks,
+    dailyChecks: loaded?.dailyChecks || {},
+    habitChecks: loaded?.habitChecks || {},
+    ledger: Array.isArray(loaded?.ledger) ? loaded.ledger : []
+  };
+}
+
+/* ============================================================
+   ۴. ذخیره‌سازی با debounce (کلید-محور، ضد اشتباه هنگام تغییر روز)
+   ============================================================ */
+const pendingSaves = new Map();
+let saveTimer = null;
+
+function scheduleSave(){
+  pendingSaves.set(storageKey(currentDate), JSON.stringify(state));
+  if(saveTimer) clearTimeout(saveTimer);
+  saveTimer = setTimeout(flushSaves, 250);
+}
+function flushSaves(){
+  saveTimer = null;
+  for(const [k, v] of pendingSaves){
+    try{ localStorage.setItem(k, v); }catch(e){ console.error('save failed', e); }
+  }
+  pendingSaves.clear();
+}
+function saveNow(){
+  if(saveTimer){ clearTimeout(saveTimer); saveTimer = null; }
+  flushSaves();
+}
+
+/* ============================================================
+   ۵. وضعیت ساعت (رنگ‌آمیزی + undo)
+   ============================================================ */
+const UNDO_MAX = 40;
+let undoStack = [];
+
+function pushUndo(){
+  undoStack.push(JSON.stringify(state.hours));
+  if(undoStack.length > UNDO_MAX) undoStack.shift();
+  updateUndoButton();
+}
+function undo(){
+  if(!undoStack.length) return;
+  state.hours = JSON.parse(undoStack.pop());
+  for(let h = 0; h < 24; h++) paintCell(h);
+  saveNow();
+  updateStats();
+  updateUndoButton();
+}
+function updateUndoButton(){
+  const b = document.getElementById('undoBtn');
+  if(b) b.disabled = undoStack.length === 0;
+}
+
+function paintCell(h){
+  const cell = document.querySelector(`.hour-cell[data-hour="${h}"]`);
+  if(!cell) return;
+  const key = state.hours[h];
+  const label = cell.querySelector('.hl');
+  if(key){
+    const cat = CATEGORIES.find(c => c.key === key);
+    if(!cat) return;
+    cell.classList.add('filled');
+    cell.style.background = cat.color;
+    label.textContent = cat.label;
+  } else {
+    cell.classList.remove('filled');
+    cell.style.background = '';
+    label.textContent = '';
+  }
+}
+function applyToHour(h){
+  state.hours[h] = activeCategory;
+  paintCell(h);
+}
+
+/* ============================================================
+   ۶. راهنمای دسته‌ها (Legend)
+   ============================================================ */
+function setActiveCategory(key, btnEl){
+  activeCategory = key;
+  document.querySelectorAll('#legend button').forEach(b => {
+    b.classList.remove('active');
+    b.style.background = 'transparent';
+    b.style.color = 'var(--ink)';
+  });
+  if(key){
+    const cat = CATEGORIES.find(c => c.key === key);
+    btnEl.classList.add('active');
+    btnEl.style.background = cat.color;
+  } else {
+    btnEl.classList.add('active');
+    btnEl.style.background = '#ccc';
+  }
+}
+
+function buildLegend(){
+  const wrap = document.getElementById('legend');
+  wrap.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.dataset.key = cat.key;
+    btn.innerHTML = `<span class="dot" style="background:${cat.color}"></span>`;
+
+    const nameSpan = document.createElement('span');
+    nameSpan.className = 'cat-name';
+    nameSpan.contentEditable = 'true';
+    nameSpan.spellcheck = false;
+    nameSpan.textContent = cat.label;
+
+    nameSpan.addEventListener('click', e => e.stopPropagation());
+    nameSpan.addEventListener('keydown', e => {
+      if(e.key === 'Enter'){ e.preventDefault(); nameSpan.blur(); }
+    });
+    nameSpan.addEventListener('blur', () => {
+      const newLabel = nameSpan.textContent.trim() || cat.label;
+      nameSpan.textContent = newLabel;
+      cat.label = newLabel;
+      saveCategoryLabels();
+      for(const h in state.hours){ if(state.hours[h] === cat.key) paintCell(h); }
+      updateStats();
+    });
+
+    btn.appendChild(nameSpan);
+    btn.addEventListener('click', () => setActiveCategory(cat.key, btn));
+    wrap.appendChild(btn);
+  });
+
+  const eraser = document.createElement('button');
+  eraser.type = 'button';
+  eraser.className = 'eraser';
+  eraser.textContent = 'پاک‌کن';
+  eraser.addEventListener('click', () => setActiveCategory(null, eraser));
+  wrap.appendChild(eraser);
+}
+
+/* ============================================================
+   ۷. گرید ساعت‌ها — چهار بلوک با برچسب + drag لمسی/ماوس
+   ============================================================ */
+const HOUR_BLOCKS = [
+  {label:'۰–۶  •  شب',    from:0,  to:6},
+  {label:'۶–۱۲  •  صبح',   from:6,  to:12},
+  {label:'۱۲–۱۸  •  عصر',  from:12, to:18},
+  {label:'۱۸–۲۴  •  شب',   from:18, to:24}
+];
+
+function buildHourGrid(){
+  const container = document.getElementById('hourBlocks');
+  container.innerHTML = '';
+  HOUR_BLOCKS.forEach(block => {
+    const wrap = document.createElement('div');
+    wrap.className = 'hour-block';
+
+    const lbl = document.createElement('div');
+    lbl.className = 'hour-block-label';
+    lbl.textContent = block.label;
+    wrap.appendChild(lbl);
+
+    const g = document.createElement('div');
+    g.className = 'hour-grid';
+    for(let h = block.from; h < block.to; h++){
+      const cell = document.createElement('div');
+      cell.className = 'hour-cell';
+      cell.dataset.hour = h;
+      cell.innerHTML = `<span class="hn">${toFa(h)}</span><span class="hl"></span>`;
+      g.appendChild(cell);
+    }
+    wrap.appendChild(g);
+    container.appendChild(wrap);
+  });
+  attachDragHandlers(container);
+}
+
+function attachDragHandlers(root){
+  let isDragging = false;
+
+  function getCellFromEvent(e){
+    const t = e.touches ? e.touches[0] : e;
+    if(!t) return null;
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    return el?.closest?.('.hour-cell');
+  }
+  function onStart(e){
+    const cell = getCellFromEvent(e);
+    if(!cell) return;
+    isDragging = true;
+    pushUndo();
+    applyToHour(cell.dataset.hour);
+    e.preventDefault();
+  }
+  function onMove(e){
+    if(!isDragging) return;
+    const cell = getCellFromEvent(e);
+    if(cell) applyToHour(cell.dataset.hour);
+    e.preventDefault();
+  }
+  function onEnd(){
+    if(!isDragging) return;
+    isDragging = false;
+    saveNow();
+    updateStats();
+  }
+
+  root.addEventListener('mousedown', onStart);
+  root.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onEnd);
+
+  root.addEventListener('touchstart', onStart, {passive:false});
+  root.addEventListener('touchmove', onMove, {passive:false});
+  window.addEventListener('touchend', onEnd);
+  window.addEventListener('touchcancel', onEnd);
+}
+
+/* ============================================================
+   ۸. کارهای امروز (per-day)
+   ============================================================ */
+function renderTodayTasks(){
+  const ul = document.getElementById('todayTasks');
+  ul.innerHTML = '';
+  state.todayTasks.forEach((t, idx) => ul.appendChild(makeTodayRow(t, idx)));
+}
+
+function makeTodayRow(t, idx){
+  const li = document.createElement('li');
+  li.className = 'task-row' + (t.done ? ' done' : '');
+
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.checked = !!t.done;
+  cb.addEventListener('change', () => {
+    t.done = cb.checked;
+    li.classList.toggle('done', cb.checked);
+    scheduleSave();
+    updateStats();
+  });
+
+  const txt = document.createElement('input');
+  txt.type = 'text';
+  txt.value = t.text || '';
+  txt.placeholder = '...';
+  txt.addEventListener('input', () => {
+    t.text = txt.value;
+    scheduleSave();
+  });
+
+  const del = document.createElement('button');
+  del.type = 'button';
+  del.className = 'row-del';
+  del.textContent = '×';
+  del.title = 'حذف';
+  del.addEventListener('click', () => {
+    state.todayTasks.splice(idx, 1);
+    renderTodayTasks();
+    scheduleSave();
+    updateStats();
+  });
+
+  li.appendChild(cb);
+  li.appendChild(txt);
+  li.appendChild(del);
+  return li;
+}
+
+/* ============================================================
+   ۹. کارهای روزانه + بهداشت (قالب مشترک + چک per-day + streak)
+   ============================================================ */
+function getDayData(date){
+  if(ymd(date) === ymd(currentDate)){
+    return { dailyChecks: state.dailyChecks, habitChecks: state.habitChecks };
+  }
+  try{
+    const raw = localStorage.getItem(storageKey(date));
+    return raw ? JSON.parse(raw) : {};
+  }catch(e){ return {}; }
+}
+
+function itemStreak(id, kind){
+  const key = kind === 'daily' ? 'dailyChecks' : 'habitChecks';
+  let n = 0;
+  const d = new Date(currentDate);
+
+  const today = getDayData(d);
+  if(!today[key]?.[id]) d.setDate(d.getDate() - 1);
+
+  for(let i = 0; i < 400; i++){
+    const data = getDayData(d);
+    if(data[key]?.[id]){
+      n++;
+      d.setDate(d.getDate() - 1);
+    } else break;
+  }
+  return n;
+}
+
+function renderDailyTasks(){
+  const ul = document.getElementById('dailyTasks');
+  ul.innerHTML = '';
+  template.daily.forEach(item => {
+    ul.appendChild(makeTemplateRow(item, 'daily'));
+  });
+}
+function renderHabits(){
+  const ul = document.getElementById('habitList');
+  ul.innerHTML = '';
+  template.habits.forEach(item => {
+    ul.appendChild(makeTemplateRow(item, 'habit'));
+  });
+}
+
+function makeTemplateRow(item, kind){
+  const checksObj = kind === 'daily' ? state.dailyChecks : state.habitChecks;
+  const templateArr = kind === 'daily' ? template.daily : template.habits;
+  const isDailyKind = kind === 'daily';
+
+  const li = document.createElement('li');
+  li.className = 'task-row' + (checksObj[item.id] ? ' done' : '');
+
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.checked = !!checksObj[item.id];
+  cb.addEventListener('change', () => {
+    checksObj[item.id] = cb.checked;
+    li.classList.toggle('done', cb.checked);
+    scheduleSave();
+    updateStats();
+    // streak را دوباره بخوان
+    const s = itemStreak(item.id, kind);
+    const st = li.querySelector('.streak');
+    if(st) st.textContent = s > 1 ? '🔥 ' + toFa(s) : '';
+  });
+
+  const txt = document.createElement('input');
+  txt.type = 'text';
+  txt.value = item.text || '';
+  txt.placeholder = '...';
+  txt.addEventListener('input', () => {
+    item.text = txt.value;
+    saveTemplate(); // این متن مشترک بین همهٔ روزهاست
+  });
+
+  const streakEl = document.createElement('span');
+  streakEl.className = 'streak';
+  const s = itemStreak(item.id, kind);
+  streakEl.textContent = s > 1 ? '🔥 ' + toFa(s) : '';
+
+  const del = document.createElement('button');
+  del.type = 'button';
+  del.className = 'row-del';
+  del.textContent = '×';
+  del.title = isDailyKind ? 'حذف از همهٔ روزها' : 'حذف از همهٔ روزها';
+  del.addEventListener('click', () => {
+    const label = isDailyKind ? 'کار روزانه' : 'آیتم بهداشت';
+    if(!confirm(`این ${label} از قالب همهٔ روزها حذف شود؟`)) return;
+    const arr = isDailyKind ? template.daily : template.habits;
+    const i = arr.indexOf(item);
+    if(i >= 0) arr.splice(i, 1);
+    saveTemplate();
+    isDailyKind ? renderDailyTasks() : renderHabits();
+    updateStats();
+  });
+
+  li.appendChild(cb);
+  li.appendChild(txt);
+  li.appendChild(streakEl);
+  li.appendChild(del);
+  return li;
+}
+
+/* ============================================================
+   ۱۰. دفتر پول (ledger با جمع خودکار)
+   ============================================================ */
+function renderLedger(){
+  const rows = document.getElementById('ledgerRows');
+  rows.innerHTML = '';
+  state.ledger.forEach((row, idx) => {
+    const el = document.createElement('div');
+    el.className = 'ledger-row';
+
+    const desc = document.createElement('input');
+    desc.type = 'text';
+    desc.value = row.desc || '';
+    desc.placeholder = 'مثلاً: تاکسی';
+    desc.addEventListener('input', () => { row.desc = desc.value; scheduleSave(); });
+
+    const amt = document.createElement('input');
+    amt.type = 'text';
+    amt.inputMode = 'numeric';
+    amt.className = 'amt';
+    amt.value = row.amount ? toFa(String(row.amount).replace(/\B(?=(\d{3})+(?!\d))/g, ',')) : '';
+    amt.placeholder = '۰';
+    amt.addEventListener('input', () => {
+      const raw = amt.value.replace(/[^\d۰-۹]/g, '').replace(/[۰-۹]/g, d => FA_DIGITS.indexOf(d));
+      row.amount = raw;
+      amt.value = raw ? toFa(raw.replace(/\B(?=(\d{3})+(?!\d))/g, ',')) : '';
+      updateLedgerTotal();
+      scheduleSave();
+    });
+
+    const type = document.createElement('select');
+    ['هزینه','درآمد'].forEach(t => {
+      const o = document.createElement('option');
+      o.value = t;
+      o.textContent = t;
+      if((row.type || 'هزینه') === t) o.selected = true;
+      type.appendChild(o);
+    });
+    type.addEventListener('change', () => {
+      row.type = type.value;
+      updateLedgerTotal();
+      scheduleSave();
+    });
+
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'row-del';
+    del.textContent = '×';
+    del.addEventListener('click', () => {
+      state.ledger.splice(idx, 1);
+      renderLedger();
+      scheduleSave();
+    });
+
+    el.appendChild(desc);
+    el.appendChild(amt);
+    el.appendChild(type);
+    el.appendChild(del);
+    rows.appendChild(el);
+  });
+  updateLedgerTotal();
+}
+
+function fmtMoney(n){
+  return toFa(String(Math.abs(+n || 0)).replace(/\B(?=(\d{3})+(?!\d))/g, ','));
+}
+
+function updateLedgerTotal(){
+  let income = 0, expense = 0;
+  state.ledger.forEach(r => {
+    const n = +(r.amount || 0);
+    if(r.type === 'درآمد') income += n;
+    else expense += n;
+  });
+  const net = income - expense;
+  document.getElementById('sumExpense').textContent = fmtMoney(expense);
+  document.getElementById('sumIncome').textContent  = fmtMoney(income);
+  const netEl = document.getElementById('sumNet');
+  netEl.textContent = (net < 0 ? '−' : '') + fmtMoney(net);
+  const wrap = document.getElementById('netWrap');
+  wrap.classList.toggle('positive', net >= 0);
+  wrap.classList.toggle('negative', net < 0);
+}
+
+/* ============================================================
+   ۱۱. آمار
+   ============================================================ */
+function updateStats(){
+  renderStatsBars();
+  renderProgress();
+  renderWeekGrid();
+}
+
+function renderStatsBars(){
+  const container = document.getElementById('statsBars');
+  const counts = {};
+  for(const h in state.hours){
+    const k = state.hours[h];
+    if(k) counts[k] = (counts[k] || 0) + 1;
+  }
+  const total = Object.values(counts).reduce((a,b) => a+b, 0);
+  if(!total){
+    container.innerHTML = '<div class="stat-empty">هنوز چیزی برای امروز ثبت نشده</div>';
+    return;
+  }
+  container.innerHTML = '';
+  CATEGORIES.forEach(cat => {
+    const n = counts[cat.key] || 0;
+    if(!n) return;
+    const pct = Math.round(n / total * 100);
+    const div = document.createElement('div');
+    div.className = 'stat-bar';
+    div.innerHTML = `
+      <span class="lbl">${escapeHtml(cat.label)}</span>
+      <span class="track"><span class="fill" style="width:${pct}%;background:${cat.color}"></span></span>
+      <span class="val">${toFa(n)} ساعت</span>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function renderProgress(){
+  const ring = document.getElementById('progressRing');
+  const num  = document.getElementById('progressNum');
+  const legend = document.getElementById('progressLegend');
+
+  // امروز
+  let todayTotal = 0, todayDone = 0;
+  state.todayTasks.forEach(t => {
+    if((t.text || '').trim()){ todayTotal++; if(t.done) todayDone++; }
+  });
+
+  // روزانه
+  let dailyTotal = template.daily.length, dailyDone = 0;
+  template.daily.forEach(it => { if(state.dailyChecks[it.id]) dailyDone++; });
+
+  // بهداشت
+  let habitTotal = template.habits.length, habitDone = 0;
+  template.habits.forEach(it => { if(state.habitChecks[it.id]) habitDone++; });
+
+  const total = todayTotal + dailyTotal + habitTotal;
+  const done  = todayDone  + dailyDone  + habitDone;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  const deg = pct * 3.6;
+
+  ring.style.background = `conic-gradient(var(--brand) ${deg}deg, rgba(0,0,0,.08) ${deg}deg)`;
+  num.textContent = toFa(pct) + '٪';
+
+  legend.innerHTML = `
+    <div>کارهای امروز: <b>${toFa(todayDone)} / ${toFa(todayTotal)}</b></div>
+    <div>کارهای روزانه: <b>${toFa(dailyDone)} / ${toFa(dailyTotal)}</b></div>
+    <div>بهداشت: <b>${toFa(habitDone)} / ${toFa(habitTotal)}</b></div>
+  `;
+}
+
+function renderWeekGrid(){
+  const grid = document.getElementById('weekGrid');
+  grid.innerHTML = '';
+  const today = new Date();
+
+  for(let i = 6; i >= 0; i--){
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+
+    let data = null;
+    try{
+      const raw = localStorage.getItem(storageKey(d));
+      if(raw) data = JSON.parse(raw);
+    }catch(e){}
+
+    const jp = jalaliParts(d);
+    const isToday = ymd(d) === ymd(today);
+
+    const wd = document.createElement('div');
+    wd.className = 'week-day' + (isToday ? ' today' : '');
+    wd.title = fmtMYJ.format(d);
+
+    const bar = document.createElement('div');
+    bar.className = 'wd-bar';
+    if(data?.hours){
+      const counts = {};
+      for(const h in data.hours){
+        const k = data.hours[h];
+        if(k) counts[k] = (counts[k] || 0) + 1;
+      }
+      const tot = Object.values(counts).reduce((a,b) => a+b, 0) || 1;
+      CATEGORIES.forEach(c => {
+        const n = counts[c.key] || 0;
+        if(!n) return;
+        const span = document.createElement('span');
+        span.style.width = (n / tot * 100) + '%';
+        span.style.background = c.color;
+        bar.appendChild(span);
+      });
+    }
+
+    const nameEl = document.createElement('div');
+    nameEl.className = 'wd-name';
+    nameEl.textContent = WEEK_SHORT[fmtWeekJ.format(d)] || '';
+
+    const numEl = document.createElement('div');
+    numEl.className = 'wd-num';
+    numEl.textContent = toFa(jp.d);
+
+    wd.appendChild(nameEl);
+    wd.appendChild(numEl);
+    wd.appendChild(bar);
+    wd.addEventListener('click', () => goToDate(d));
+    grid.appendChild(wd);
+  }
+}
+
+/* ============================================================
+   ۱۲. تقویم جلالی (مودال)
+   ============================================================ */
+function openCalendar(){
+  const jp = jalaliParts(currentDate);
+  viewMonth = { y: jp.y, m: jp.m };
+  renderCalendar();
+  document.getElementById('calModal').classList.add('show');
+}
+
+function shiftViewMonth(delta){
+  let m = viewMonth.m + delta;
+  let y = viewMonth.y;
+  if(m > 12){ m = 1; y++; }
+  if(m < 1){ m = 12; y--; }
+  viewMonth = { y, m };
+  renderCalendar();
+}
+
+function firstOfViewMonth(){
+  const anchorJP = jalaliParts(currentDate);
+  const diffMonths = (viewMonth.y - anchorJP.y) * 12 + (viewMonth.m - anchorJP.m);
+  const probe = new Date(currentDate);
+  probe.setDate(probe.getDate() + diffMonths * 30);
+
+  let safety = 0;
+  while(safety++ < 60){
+    const p = jalaliParts(probe);
+    if(p.y === viewMonth.y && p.m === viewMonth.m){
+      probe.setDate(probe.getDate() - (p.d - 1));
+      return probe;
+    }
+    const cur = p.y * 12 + p.m;
+    const tgt = viewMonth.y * 12 + viewMonth.m;
+    probe.setDate(probe.getDate() + (cur < tgt ? 1 : -1));
+  }
+  return probe;
+}
+
+function renderCalendar(){
+  document.getElementById('calTitle').textContent =
+    jalaliMonths[viewMonth.m - 1] + ' ' + toFa(viewMonth.y);
+
+  const grid = document.getElementById('calGrid');
+  grid.innerHTML = '';
+
+  ['ش','ی','د','س','چ','پ','ج'].forEach(n => {
+    const el = document.createElement('div');
+    el.className = 'cal-dow';
+    el.textContent = n;
+    grid.appendChild(el);
+  });
+
+  const first = firstOfViewMonth();
+  const firstDow = (first.getDay() + 1) % 7; // شنبه = 0
+  for(let i = 0; i < firstDow; i++){
+    const el = document.createElement('div');
+    el.className = 'cal-day empty';
+    grid.appendChild(el);
+  }
+
+  const todayYmd = ymd(new Date());
+  const selectedYmd = ymd(currentDate);
+
+  const probe = new Date(first);
+  let count = 0;
+  while(count < 31){
+    const p = jalaliParts(probe);
+    if(p.m !== viewMonth.m || p.y !== viewMonth.y) break;
+
+    const isToday    = ymd(probe) === todayYmd;
+    const isSelected = ymd(probe) === selectedYmd;
+    const hasData    = localStorage.getItem(storageKey(probe)) !== null;
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'cal-day'
+      + (isToday ? ' today' : '')
+      + (isSelected ? ' selected' : '')
+      + (hasData ? ' has-data' : '');
+    btn.textContent = toFa(p.d);
+
+    const target = new Date(probe);
+    btn.addEventListener('click', () => {
+      document.getElementById('calModal').classList.remove('show');
+      goToDate(target);
+    });
+    grid.appendChild(btn);
+
+    probe.setDate(probe.getDate() + 1);
+    count++;
+  }
+}
+
+/* ============================================================
+   ۱۳. پشتیبان‌گیری / بازیابی
+   ============================================================ */
+function exportAll(){
+  const data = {};
+  for(let i = 0; i < localStorage.length; i++){
+    const k = localStorage.key(i);
+    if(k.startsWith('planner-')) data[k] = localStorage.getItem(k);
+  }
+  if(!Object.keys(data).length){
+    alert('داده‌ای برای پشتیبان‌گیری وجود ندارد.');
+    return;
+  }
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `planner-backup-${ymd(new Date())}.json`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+
+  localStorage.setItem(BACKUP_KEY, String(Date.now()));
+  document.getElementById('backupReminder').style.display = 'none';
+}
+
+function importAll(file){
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const data = JSON.parse(reader.result);
+      Object.entries(data).forEach(([k, v]) => {
+        if(k.startsWith('planner-')) localStorage.setItem(k, v);
+      });
+      alert('بازیابی با موفقیت انجام شد. صفحه دوباره بارگذاری می‌شود.');
+      location.reload();
+    }catch(e){
+      alert('فایل نامعتبر است.');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function checkBackupReminder(){
+  const last = +localStorage.getItem(BACKUP_KEY) || 0;
+  const days = (Date.now() - last) / 86400000;
+  // اگر داده‌ای هست و ۷ روز گذشته
+  const hasData = localStorage.length > 2;
+  if(hasData && days > 7){
+    const el = document.getElementById('backupReminder');
+    el.style.display = 'block';
+    el.querySelector('.days').textContent = toFa(Math.floor(days));
+  }
+}
+
+/* ============================================================
+   ۱۴. رندر کلی و ناوبری روز
+   ============================================================ */
+function autoGrow(el){
+  el.style.height = 'auto';
+  el.style.height = el.scrollHeight + 'px';
+}
+
+function renderAll(){
+  // یادداشت‌ها
+  document.getElementById('note1').value = state.note1;
+  document.getElementById('note2').value = state.note2;
+  document.getElementById('moneyNotes').value = state.money;
+  document.querySelectorAll('textarea').forEach(autoGrow);
+
+  // ساعت‌ها
+  for(let h = 0; h < 24; h++) paintCell(h);
+  undoStack = [];
+  updateUndoButton();
+
+  // کارها
+  renderTodayTasks();
+  renderDailyTasks();
+  renderHabits();
+
+  // پول
+  renderLedger();
+
+  // آمار
+  updateStats();
+}
+
+function goToDate(d){
+  saveNow();
+  currentDate = new Date(d);
+  renderHeader();
+  loadDayState();
+  renderAll();
+}
+
+/* ============================================================
+   ۱۵. راه‌اندازی و اتصال رخدادها
+   ============================================================ */
+loadCategoryLabels();
+buildLegend();
+buildHourGrid();
+
+// بارگذاری اولیه
+template = loadTemplate();
+saveTemplate();
+
+currentDate = new Date();
+renderHeader();
+loadDayState();
+renderAll();
+
+// دکمه‌های ناوبری
+document.getElementById('prevDay').addEventListener('click', () => {
+  const d = new Date(currentDate);
+  d.setDate(d.getDate() - 1);
+  goToDate(d);
+});
+document.getElementById('nextDay').addEventListener('click', () => {
+  const d = new Date(currentDate);
+  d.setDate(d.getDate() + 1);
+  goToDate(d);
+});
+document.getElementById('todayBtn').addEventListener('click', () => goToDate(new Date()));
+
+// تقویم
+document.getElementById('headDate').addEventListener('click', openCalendar);
+document.getElementById('calClose').addEventListener('click', () =>
+  document.getElementById('calModal').classList.remove('show'));
+document.getElementById('calPrev').addEventListener('click', () => shiftViewMonth(-1));
+document.getElementById('calNext').addEventListener('click', () => shiftViewMonth(1));
+document.getElementById('calModal').addEventListener('click', e => {
+  if(e.target.id === 'calModal') e.currentTarget.classList.remove('show');
+});
+
+// تب‌ها
+document.getElementById('bottomNav').addEventListener('click', e => {
+  const btn = e.target.closest('button[data-page]');
+  if(!btn) return;
+  document.querySelectorAll('.bottom-nav button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(btn.dataset.page).classList.add('active');
+  if(btn.dataset.page === 'page-stats') updateStats();
+});
+
+// یادداشت‌ها (auto-grow + ذخیره)
+document.getElementById('note1').addEventListener('input', function(){
+  state.note1 = this.value; autoGrow(this); scheduleSave();
+});
+document.getElementById('note2').addEventListener('input', function(){
+  state.note2 = this.value; autoGrow(this); scheduleSave();
+});
+document.getElementById('moneyNotes').addEventListener('input', function(){
+  state.money = this.value; autoGrow(this); scheduleSave();
+});
+
+// افزودن سطرهای کارها
+document.getElementById('todayAddBtn').addEventListener('click', () => {
+  state.todayTasks.push({});
+  renderTodayTasks();
+  scheduleSave();
+  updateStats();
+});
+document.getElementById('dailyAddBtn').addEventListener('click', () => {
+  template.daily.push({ id: uid(), text: '' });
+  saveTemplate();
+  renderDailyTasks();
+  updateStats();
+});
+document.getElementById('habitAddBtn').addEventListener('click', () => {
+  template.habits.push({ id: uid(), text: '' });
+  saveTemplate();
+  renderHabits();
+  updateStats();
+});
+
+// ابزارهای ساعت‌بندی
+document.getElementById('undoBtn').addEventListener('click', undo);
+document.getElementById('copyPrevBtn').addEventListener('click', () => {
+  const d = new Date(currentDate);
+  d.setDate(d.getDate() - 1);
+  try{
+    const raw = localStorage.getItem(storageKey(d));
+    if(!raw){ alert('دیروز چیزی ثبت نشده است.'); return; }
+    const prev = JSON.parse(raw);
+    pushUndo();
+    state.hours = { ...(prev.hours || {}) };
+    for(let h = 0; h < 24; h++) paintCell(h);
+    saveNow();
+    updateStats();
+  }catch(e){ console.error(e); }
+});
+document.getElementById('clearHoursBtn').addEventListener('click', () => {
+  if(!Object.keys(state.hours).length) return;
+  if(!confirm('همهٔ رنگ‌های امروز پاک شوند؟')) return;
+  pushUndo();
+  state.hours = {};
+  for(let h = 0; h < 24; h++) paintCell(h);
+  saveNow();
+  updateStats();
+});
+
+// دفتر پول
+document.getElementById('addLedgerRow').addEventListener('click', () => {
+  state.ledger.push({ desc:'', amount:'', type:'هزینه' });
+  renderLedger();
+  scheduleSave();
+});
+
+// پشتیبان‌گیری
+document.getElementById('exportBtn').addEventListener('click', exportAll);
+document.getElementById('quickBackupBtn').addEventListener('click', exportAll);
+document.getElementById('importBtn').addEventListener('click', () =>
+  document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change', e => {
+  const f = e.target.files?.[0];
+  if(f) importAll(f);
+  e.target.value = '';
+});
+document.getElementById('printBtn').addEventListener('click', () => window.print());
+
+// کلیدهای میان‌بر
+document.addEventListener('keydown', e => {
+  const tag = (e.target.tagName || '').toLowerCase();
+  const isEditing = tag === 'input' || tag === 'textarea' || e.target.isContentEditable;
+  if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'z' && !isEditing){
+    e.preventDefault();
+    undo();
+  }
+  if(e.key === 'Escape'){
+    document.getElementById('calModal').classList.remove('show');
+  }
+});
+
+// هشدار قبل از بستن اگر ذخیره‌ای معلق مانده
+window.addEventListener('beforeunload', () => { if(saveTimer) saveNow(); });
+// ذخیرهٔ نهایی هنگام مخفی شدن تب
+document.addEventListener('visibilitychange', () => {
+  if(document.hidden && saveTimer) saveNow();
+});
+
+// یادآوری پشتیبان‌گیری
+checkBackupReminder();
+</script>
 </body>
-</html>
+    </html>
